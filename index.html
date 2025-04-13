@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Renatka w Szwajcarii | Alpejska Przygoda Kamperem 2025</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <style>
+        /* --- Variables --- */
+        :root {
+            --primary: #1d4e89;
+            --secondary: #16a085;
+            --light-bg: #f6f9fc;
+            --dark-text: #2c3e50;
+            --light-text: #ecf0f1;
+            --accent: #e74c3c;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --border-radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        /* --- Base Styles --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--dark-text);
+            line-height: 1.6;
+            background-color: var(--light-bg);
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: var(--secondary);
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+        }
+
+        img {
+            max-width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        section {
+            padding: 5rem 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--primary);
+            color: var(--light-text);
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            box-shadow: var(--shadow);
+        }
+
+        .btn:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+            font-size: 2.5rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--secondary);
+            font-weight: 400;
+            font-size: 1.2rem;
+        }
+
+        /* --- Header --- */
+        .header {
+            position: relative;
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('img/body.jpg') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--light-text);
+            padding: 0 1rem;
+        }
+
+        .header-content h1 {
+            font-size: 3.5rem;
+            color: var(--light-text);
+            margin-bottom: 1.5rem;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .header-content p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            animation: fadeIn 1.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- Navigation --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: var(--transition);
+            background-color: transparent;
+        }
+
+        .navbar.scrolled {
+            background-color: var(--card-bg);
+            box-shadow: var(--shadow);
+            padding: 0.7rem 0;
+        }
+
+        .navbar.scrolled .nav-link {
+            color: var(--dark-text);
+        }
+
+        .navbar.scrolled .logo {
+            color: var(--primary);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--light-text);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--light-text);
+            margin-left: 2rem;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--light-text);
+        }
+
+        /* --- Hero Section --- */
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        /* --- Itinerary Section --- */
+        .itinerary {
+            background-color: var(--light-bg);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 10px;
+        }
+
+        .day {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .day-left {
+            left: 0;
+        }
+
+        .day-right {
+            left: 50%;
+        }
+
+        .day-content {
+            padding: 1.5rem;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .day-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .day-content h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .day-date {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .day-info {
+            margin-bottom: 1rem;
+        }
+
+        .day-info p {
+            margin-bottom: 0.5rem;
+        }
+
+        .day-img {
+            margin-top: 1rem;
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        /* Circles on timeline */
+        .day::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -13px;
+            background-color: var(--primary);
+            border: 4px solid var(--secondary);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .day-right::after {
+            left: -12px;
+        }
+
+        /* --- Tips Section --- */
+        .tips {
+            background-color: var(--card-bg);
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .tip-card {
+            background-color: var(--light-bg);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .tip-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .tip-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        /* --- Gallery Section --- */
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--border-radius);
+            height: 250px;
+            cursor: pointer;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.1);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--light-text);
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+
+        /* --- Footer --- */
+        .footer {
+            background-color: var(--primary);
+            color: var(--light-text);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-column h3 {
+            color: var(--light-text);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--light-text);
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-icon {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            margin-top: 4rem;
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* --- Responsive Styles --- */
+        @media (max-width: 992px) {
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .header-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .header-content p {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+
+            .day {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .day-right {
+                left: 0;
+            }
+
+            .day::after {
+                left: 18px;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 70%;
+                background-color: var(--card-bg);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: var(--transition);
+                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-link {
+                color: var(--dark-text);
+                margin: 1.5rem 0;
+            }
+
+            .close-menu {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+        }
+
+        @media (max-width: 576px) {
+            section {
+                padding: 3rem 0;
+            }
+
+            .header-content h1 {
+                font-size: 2rem;
+            }
+
+            .btn {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.9rem;
+            }
+
+            .tip-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">Renatka w Szwajcarii</a>
+            
+            <ul class="nav-links">
+                <li><a href="#o-renatce" class="nav-link">O Renatce</a></li>
+                <li><a href="#plan" class="nav-link">Plan podróży</a></li>
+                <li><a href="#widoki" class="nav-link">Ulubione widoki</a></li>
+                <li><a href="#szlaki" class="nav-link">Szlaki górskie</a></li>
+                <li><a href="#porady" class="nav-link">Porady</a></li>
+                <li><a href="#galeria" class="nav-link">Galeria</a></li>
+                <div class="close-menu"><i class="fas fa-times"></i></div>
+            </ul>
+            
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1>Renatka podbija Alpy!</h1>
+            <p>Dołącz do Renatki w jej niezapomnianej podróży kamperem przez najpiękniejsze widoki i szlaki górskie Szwajcarii od 27 kwietnia do 3 maja 2025 roku.</p>
+            <div class="hero-cta">
+                <a href="#plan" class="btn">Plan podróży</a>
+                <a href="#porady" class="btn" style="background-color: var(--secondary);">Praktyczne porady</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Itinerary Section -->
+    <section class="itinerary" id="plan">
+        <div class="container">
+            <h2 class="section-title">Plan podróży Renatki</h2>
+            <p class="section-subtitle">Szczegółowy harmonogram 7-dniowej wyprawy Renatki kamperem po Szwajcarii</p>
+            
+            <div class="timeline">
+                <!-- Day 1 -->
+                <div class="day day-left">
+                    <div class="day-content">
+                        <h3>Dzień 1</h3>
+                        <span class="day-date">27 kwietnia: Przejazd do Berna i nocleg w okolicach Interlaken</span>
+                        <div class="day-info">
+                            <p><strong>Trasa:</strong> Bazylea → Berno (około 1,5 godziny jazdy) → Interlaken (50 minut)</p>
+                            <p><strong>Berno:</strong> Zwiedzanie historycznego centrum wpisanego na listę UNESCO, w tym Katedry św. Wincentego i Zytglogge – średniowiecznej wieży zegarowej. Spacer nad rzeką Aare.</p>
+                            <p><strong>Interlaken:</strong> Nocleg na Camping Lazy Rancho (adres: Seestrasse 50), który zapewnia pełne zaplecze sanitarne i widoki na Jungfrau. Wieczorny spacer wzdłuż rzeki Aare lub jeziora Brienz.</p>
+                        </div>
+                        <img src="img/bern.jpg" alt="Berno i Interlaken" class="day-img">
+                    </div>
+                </div>
+
+                <!-- Day 2 -->
+                <div class="day day-right">
+                    <div class="day-content">
+                        <h3>Dzień 2</h3>
+                        <span class="day-date">28 kwietnia: Dolina Lauterbrunnen i Grindelwald</span>
+                        <div class="day-info">
+                            <p><strong>Trasa:</strong> Interlaken → Lauterbrunnen (20 minut) → Grindelwald (30 minut)</p>
+                            <p><strong>Lauterbrunnen:</strong> Wędrówka szlakiem do Staubbachfall (wodospad o wysokości 297 m) oraz Trümmelbachfälle – serii podziemnych wodospadów wykutych w skale. Trasa o długości 4 km (łatwa, czas: 1,5 godziny).</p>
+                            <p><strong>Grindelwald:</strong> Kolejką linową na First (2168 m n.p.m.), skąd rozciąga się panorama Eigeru, Möncha i Jungfrau. Dla śmiałych – przejście First Cliff Walk – wiszącej kładki nad przepaścią.</p>
+                            <p><strong>Nocleg:</strong> Kemping Gletscherdorf w Grindelwaldzie (adres: Obere Gletscherstrasse 1), z widokiem na lodowiec Unterer Grindelwaldgletscher.</p>
+                        </div>
+                        <img src="img/dolina.jpg" alt="Dolina Lauterbrunnen i Grindelwald" class="day-img">
+                    </div>
+                </div>
+
+                <!-- Day 3 -->
+                <div class="day day-left">
+                    <div class="day-content">
+                        <h3>Dzień 3</h3>
+                        <span class="day-date">29 kwietnia: Jungfraujoch – Top of Europe</span>
+                        <div class="day-info">
+                            <p><strong>Trasa:</strong> Grindelwald → Kleine Scheidegg (kolejką Wengernalpbahn) → Jungfraujoch</p>
+                            <p><strong>Jungfraujoch:</strong> Przejazd kolejką górską na wysokość 3454 m n.p.m. Zwiedzanie Lodowego Pałacu, tarasu widokowego Sphinx oraz spacer po lodowcu Aletsch. Uwaga: Ze względu na warunki śnieżne, zaleca się zakup biletów online (cena: ok. 210 CHF).</p>
+                            <p><strong>Alternatywa:</strong> Łagodniejszy szlak z Wengen do Männlichen (5 km, czas: 2 godziny), oferujący widoki na dolinę Lauterbrunnen.</p>
+                            <p><strong>Nocleg:</strong> Powrót do kempingu w Grindelwaldzie.</p>
+                        </div>
+                        <img src="img/jungfraujoche.jpg" alt="Jungfraujoch - Top of Europe" class="day-img">
+                    </div>
+                </div>
+
+                <!-- Day 4 -->
+                <div class="day day-right">
+                    <div class="day-content">
+                        <h3>Dzień 4</h3>
+                        <span class="day-date">30 kwietnia: Przejazd do Zermatt i widok na Matterhorn</span>
+                        <div class="day-info">
+                            <p><strong>Trasa:</strong> Grindelwald → Zermatt (3,5 godziny, przez przełęcz Grimselpass)</p>
+                            <p><strong>Zermatt:</strong> Miasto dostępne tylko dla pojazdów elektrycznych – kamper należy zostawić na parkingu Täsch i przesiąść się w pociąg (czas: 12 minut). Kolejką linową na Gornergrat (3089 m n.p.m.) – punkt widokowy na Matterhorn i alpejskie szczyty.</p>
+                            <p><strong>Szlaki górskie:</strong> 5-Seen-Weg („Szlak Pięciu Jezior"): Trasa o długości 9,5 km (czas: 3 godziny), prowadząca obok jezior Stellisee, Grindjisee i Grünsee. Wymagane buty trekkingowe.</p>
+                            <p><strong>Nocleg:</strong> Kemping Matterhorn w Täsch (adres: Bahnhofstrasse 30), z bezpłatnym shuttle do Zermatt.</p>
+                        </div>
+                        <img src="img/matterhorns.jpg" alt="Zermatt i Matterhorn" class="day-img">
+                    </div>
+                </div>
+
+                <!-- Day 5 -->
+                <div class="day day-left">
+                    <div class="day-content">
+                        <h3>Dzień 5</h3>
+                        <span class="day-date">1 maja: Jezioro Genewskie i Lavaux</span>
+                        <div class="day-info">
+                            <p><strong>Trasa:</strong> Zermatt → Montreux (2,5 godziny) → Lozanna (30 minut)</p>
+                            <p><strong>Montreux:</strong> Spacer nad Jeziorem Genewskim wzdłuż Promenady Freddiego Mercury'ego oraz zwiedzanie średniowiecznego zamku Chillon.</p>
+                            <p><strong>Lavaux:</strong> Winiarskie tarasy wpisane na listę UNESCO. Trasa piesza z Lutry do Rivaz (8 km, czas: 2,5 godziny) – widoki na jezioro i Alpy.</p>
+                            <p><strong>Nocleg:</strong> Kemping Lavaux w Cully (adres: Route de la Corniche 2), położony bezpośrednio nad jeziorem.</p>
+                        </div>
+                        <img src="img/lavaux.jpg" alt="Jezioro Genewskie i Lavaux" class="day-img">
+                    </div>
+                </div>
+
+                <!-- Day 6 -->
+                <div class="day day-right">
+                    <div class="day-content">
+                        <h3>Dzień 6</h3>
+                        <span class="day-date">2 maja: Lucerna i góra Pilatus</span>
+                        <div class="day-info">
+                            <p><strong>Trasa:</strong> Lozanna → Lucerna (2 godziny)</p>
+                            <p><strong>Lucerna:</strong> Most Kapellbrücke, pomnik Umierający Lew oraz rejs statkiem po Jeziorze Czterech Kantonów. Dla miłośników techniki – wizyta w Muzeum Transportu.</p>
+                            <p><strong>Góra Pilatus:</strong> Wjazd najbardziej stromą kolejką zębatą świata (nachylenie 48%) na szczyt (2128 m n.p.m.). Szlak Dragon Path (4 km, czas: 1,5 godziny) prowadzi przez jaskinie i tarasy widokowe.</p>
+                            <p><strong>Nocleg:</strong> Kemping Camping Lido (adres: Lidostrasse 8), z bezpośrednim dostępem do jeziora.</p>
+                        </div>
+                        <img src="img/pilatus.jpg" alt="Lucerna i góra Pilatus" class="day-img">
+                    </div>
+                </div>
+
+                <!-- Day 7 -->
+                <div class="day day-left">
+                    <div class="day-content">
+                        <h3>Dzień 7</h3>
+                        <span class="day-date">3 maja: Zurych i powrót</span>
+                        <div class="day-info">
+                            <p><strong>Trasa:</strong> Lucerna → Zurych (40 minut) → lotnisko w Zurychu (30 minut)</p>
+                            <p><strong>Zurych:</strong> Spacer po Starym Mieście (Niederdorf), wizyta w Kunsthaus (muzeum sztuki) oraz wspinaczka na Uetliberg (871 m n.p.m.) – punkt widokowy na miasto i Alpy.</p>
+                            <p><strong>Ostatni posiłek:</strong> Restauracja Zeughauskeller, serwująca tradycyjne dania szwajcarskie.</p>
+                        </div>
+                        <img src="img/zurych.jpg" alt="Zurych" class="day-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Views Section -->
+    <section class="views" id="widoki">
+        <div class="container">
+            <h2 class="section-title">Ulubione widoki Renatki</h2>
+            <p class="section-subtitle">Odkryj najbardziej spektakularne panoramy alpejskie wybrane przez Renatkę</p>
+            
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <div class="tip-icon"><i class="fas fa-mountain"></i></div>
+                    <h3>Jungfraujoch</h3>
+                    <p>Na wysokości 3454 m n.p.m. znajduje się tzw. "Top of Europe" - spektakularne platformy widokowe pozwalające podziwiać lodowiec Aletsch oraz panoramę Alp Berneńskich. Sphinx Observation Deck oferuje widok na 360 stopni.</p>
+                </div>
+                
+                <div class="tip-card">
+                    <div class="tip-icon"><i class="fas fa-mountain"></i></div>
+                    <h3>Matterhorn</h3>
+                    <p>Słynny szczyt w kształcie piramidy najlepiej widoczny jest z Gornergrat (3089 m n.p.m.) lub ze szlaku 5-Seen-Weg, gdzie zobaczymy ikoniczny szczyt odbijający się w taflach alpejskich jezior.</p>
+                </div>
+                
+                <div class="tip-card">
+                    <div class="tip-icon"><i class="fas fa-water"></i></div>
+                    <h3>Lavaux</h3>
+                    <p>Tarasowe winnice nad Jeziorem Genewskim, wpisane na listę UNESCO. Spektakularny widok na jezioro, winnice i Alpy Francuskie z drugiej strony jeziora, szczególnie malowniczy o zachodzie słońca.</p>
+                </div>
+                
+                <div class="tip-card">
+                    <div class="tip-icon"><i class="fas fa-water"></i></div>
+                    <h3>Jezioro Czterech Kantonów</h3>
+                    <p>Otoczone alpejskimi szczytami, najlepiej podziwiać je podczas rejsu statkiem lub ze szczytu góry Pilatus. Widok na jezioro z historycznego miasta Lucerna jest równie urzekający.</p>
+                </div>
+                
+                <div class="tip-card">
+                    <div class="tip-icon"><i class="fas fa-hiking"></i></div>
+                    <h3>Dolina Lauterbrunnen</h3>
+                    <p>Spektakularna dolina polodowcowa z pionowymi ścianami i 72 wodospadami, w tym Staubbachfall spadającym z wysokości blisko 300 metrów. Widok z Männlichen lub Kleine Scheidegg pozwala objąć wzrokiem całą dolinę.</p>
+                </div>
+                
+                <div class="tip-card">
+                    <div class="tip-icon"><i class="fas fa-city"></i></div>
+                    <h3>Uetliberg</h3>
+                    <p>Góra górująca nad Zurychem (871 m n.p.m.), oferująca rozległe widoki na samo miasto, jezioro Zuryskie i - przy dobrej pogodzie - panoramę Alp w oddali.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mountain Trails Section -->
+    <section class="trails" id="szlaki" style="background-color: var(--light-bg);">
+        <div class="container">
+            <h2 class="section-title">Szlaki górskie Renatki</h2>
+            <p class="section-subtitle">Ulubione trasy piesze Renatki o różnym stopniu trudności</p>
+            
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <h3>Männlichen – Kleine Scheidegg</h3>
+                    <p><strong>Długość:</strong> 4,7 km</p>
+                    <p><strong>Czas przejścia:</strong> około 1,5 godziny</p>
+                    <p><strong>Trudność:</strong> Łatwa</p>
+                    <p><strong>Atrakcje:</strong> Spektakularna panorama na Eiger, Mönch i Jungfrau, widok na dolinę Lauterbrunnen oraz Grindelwald.</p>
+                    <p><strong>Uwagi:</strong> Szlak dostępny po dotarciu kolejką linową na Männlichen, idealny dla rodzin z dziećmi.</p>
+                </div>
+                
+                <div class="tip-card">
+                    <h3>5-Seen-Weg (Szlak Pięciu Jezior)</h3>
+                    <p><strong>Długość:</strong> 9,5 km</p>
+                    <p><strong>Czas przejścia:</strong> około 3 godziny</p>
+                    <p><strong>Trudność:</strong> Średnia</p>
+                    <p><strong>Atrakcje:</strong> Trasa prowadzi obok pięciu malowniczych jezior (Stellisee, Grindjisee, Grünsee, Moosjisee i Leisee), z których każde oferuje inny widok na Matterhorn.</p>
+                    <p><strong>Uwagi:</strong> Wymagane buty trekkingowe, warto zabrać kijki.</p>
+                </div>
+                
+                <div class="tip-card">
+                    <h3>Oberrothorn</h3>
+                    <p><strong>Długość:</strong> 6 km</p>
+                    <p><strong>Czas przejścia:</strong> około 3 godziny</p>
+                    <p><strong>Trudność:</strong> Trudna</p>
+                    <p><strong>Atrakcje:</strong> Najwyżej położony szlak pieszy w Szwajcarii (3415 m n.p.m.), panorama na 38 czterotysięczników, w tym Monte Rosa, Matterhorn i Weisshorn.</p>
+                    <p><strong>Uwagi:</strong> Wymagana dobra kondycja i aklimatyzacja wysokościowa.</p>
+                </div>
+                
+                <div class="tip-card">
+                    <h3>Dragon Path (Pilatus)</h3>
+                    <p><strong>Długość:</strong> 4 km</p>
+                    <p><strong>Czas przejścia:</strong> około 1,5 godziny</p>
+                    <p><strong>Trudność:</strong> Średnia</p>
+                    <p><strong>Atrakcje:</strong> Szlak prowadzi przez jaskinie i tarasy widokowe, oferując spektakularne widoki na Jezioro Czterech Kantonów i okoliczne góry.</p>
+                    <p><strong>Uwagi:</strong> Szlak dostępny po wjeździe kolejką zębatą na szczyt Pilatus.</p>
+                </div>
+                
+                <div class="tip-card">
+                    <h3>Lavaux Vineyard Terraces</h3>
+                    <p><strong>Długość:</strong> 8 km</p>
+                    <p><strong>Czas przejścia:</strong> około 2,5 godziny</p>
+                    <p><strong>Trudność:</strong> Łatwa do średniej</p>
+                    <p><strong>Atrakcje:</strong> Trasa prowadzi przez tarasowe winnice wpisane na listę UNESCO, z widokami na Jezioro Genewskie i Alpy Francuskie.</p>
+                    <p><strong>Uwagi:</strong> Najlepiej wędrować wiosną lub jesienią, możliwość degustacji lokalnych win po drodze.</p>
+                </div>
+                
+                <div class="tip-card">
+                    <h3>Rigi – Küssnacht</h3>
+                    <p><strong>Długość:</strong> 10 km</p>
+                    <p><strong>Czas przejścia:</strong> około 4 godziny</p>
+                    <p><strong>Trudność:</strong> Łatwa</p>
+                    <p><strong>Atrakcje:</strong> Łagodna trasa przez alpejskie łąki z widokiem na Jezioro Czterech Kantonów i Alpy Glarneńskie.</p>
+                    <p><strong>Uwagi:</strong> Idealna wycieczka dla osób szukających mniej wymagających, ale malowniczych tras.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Renatka Section -->
+    <section class="about" id="o-renatce" style="background-color: var(--card-bg);">
+        <div class="container">
+            <h2 class="section-title">O Renatce</h2>
+            <p class="section-subtitle">Poznaj organizatorkę tej niesamowitej wyprawy</p>
+            
+            <div style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: center; margin-bottom: 3rem;">
+                <div style="flex: 1; min-width: 300px;">
+                    <img src="img/renatka.jpg" alt="Renatka" style="border-radius: 50%; width: 250px; height: 250px; object-fit: cover; margin: 0 auto; display: block; box-shadow: var(--shadow);">
+                </div>
+                <div style="flex: 2; min-width: 300px;">
+                    <p style="font-size: 1.1rem; line-height: 1.8;">
+                        Cześć! Jestem Renatka i kocham podróże kamperem! Od lat marzę o dokładnym zwiedzeniu alpejskich zakątków Szwajcarii i wreszcie udało mi się zaplanować tę wyprawę w maju 2025 roku. Moja pasja do gór, fotografii i lokalnych kuchni zaprowadziła mnie do stworzenia tej trasy, która łączy najpiękniejsze widoki, urocze miasteczka i niezapomniane szlaki górskie.
+                    </p>
+                    <p style="font-size: 1.1rem; line-height: 1.8;">
+                        Uwielbiam odkrywać nowe miejsca w swoim tempie, zatrzymywać się spontanicznie w miejscach, które skradną moje serce, i dzielić się tymi doświadczeniami z innymi. Ten przewodnik to efekt wielu godzin planowania, aby wycisnąć maksimum wrażeń z każdego dnia podróży!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tips Section -->
+    <section class="tips" id="porady">
+        <div class="container">
+            <h2 class="section-title">Porady praktyczne od Renatki</h2>
+            <p class="section-subtitle">Przydatne informacje dla podróżujących kamperem po Szwajcarii</p>
+            
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <div class="tip-icon"><i class="fas fa-road"></i></div>
+                    <h3>Przepisy drogowe</h3>
+                    <p>Z mojego doświadczenia najlepiej wybrać kamper o DMC poniżej 3,5 tony, aby uniknąć dodatkowych opłat. Obowiązkowy zakup winiety (40 CHF) na autostrady - kupiłam swoją na stacji benzynowej przy granicy. Ograniczenia prędkości: 50 km/h w miastach, 80 km/h poza miastem, 100 km/h na drogach ekspresowych, 120 km/h na autostradach. Szwajcarzy bardzo przestrzegają przepisów!</p>
+                </div>
+                
+                <div class="tip-card">
+                    <div class="tip-icon"><i class="fas fa-id-card"></i></div>
+                    <h3>Wymagane dokumenty</h3>
+                    <p>Potrzebne będą: prawo jazdy kategorii B, dowód rejestracyjny pojazdu, ubezpieczenie OC z ważną Zieloną Kartą oraz karta kredytowa do opłat na automatycznych bramkach.</p>
+                </div>
+                
+                <div class="tip-card">
+                    <div class="tip-icon"><i class="fas fa-cloud-sun"></i></div>
+                    <h3>Pogoda</h3>
+                    <p>Z mojego doświadczenia w kwietniu i maju temperatury wahają się od 5°C w nocy do 15°C w ciągu dnia. Podczas mojej ubiegłorocznej wyprawy było różnie - od słonecznych 20°C w dolinach po śnieg w wysokich partiach! Koniecznie zabieram odzież warstwową, solidne buty trekkingowe, a także krem z filtrem przeciwsłonecznym - w górach UV jest dużo silniejsze!</p>
+                </div>
+                
+                <div class="tip-card">
+                    <div class="tip-icon"><i class="fas fa-campground"></i></div>
+                    <h3>Kempingi</h3>
+                    <p>W okresie majowym zaleca się rezerwację z co najmniej dwutygodniowym wyprzedzeniem. Większość kempingów otwarta jest od kwietnia do października i oferuje pełne zaplecze sanitarne.</p>
+                </div>
+                
+                <div class="tip-card">
+                    <div class="tip-icon"><i class="fas fa-money-bill-wave"></i></div>
+                    <h3>Finanse - moje triki</h3>
+                    <p>Szwajcaria nie należy do strefy euro - walutą jest frank szwajcarski (CHF). Ja zawsze korzystam z karty Revolut do wymiany franków i unikam opłat za wypłaty z bankomatów. Mój złoty trik: robię zakupy spożywcze w sieciach Aldi lub Lidl, które są znacznie tańsze niż Coop czy Migros. Zabieram też termos i przygotowuję własną kawę - za cappuccino w kawiarni zapłacimy nawet 7-8 CHF! Mój budżet dzienny na 2 osoby to około 180 CHF, z czego 70-80 CHF idzie na kemping.</p>
+                </div>
+                
+                <div class="tip-card">
+                    <div class="tip-icon"><i class="fas fa-phone"></i></div>
+                    <h3>Numery alarmowe</h3>
+                    <p>Ogólny numer alarmowy: 112<br>Policja: 117<br>Straż pożarna: 118<br>Pogotowie ratunkowe: 144<br>Górskie służby ratunkowe: 1414</p>
+                </div>
+                
+                <div class="tip-card">
+                    <div class="tip-icon"><i class="fas fa-info-circle"></i></div>
+                    <h3>Ciekawostki</h3>
+                    <p>Szwajcaria ma cztery języki urzędowe: niemiecki, francuski, włoski i retoromański. W zależności od regionu, spotkamy się z innym językiem i kulturą. Szwajcarzy są punktualni i cenią porządek - szanuj lokalne zasady i zwyczaje.</p>
+                </div>
+                
+                <div class="tip-card">
+                    <div class="tip-icon"><i class="fas fa-wifi"></i></div>
+                    <h3>Internet i aplikacje</h3>
+                    <p>Zalecamy korzystanie z aplikacji Komoot do planowania szlaków górskich. Większość miast oferuje darmowe Wi-Fi w centrach. Warto pobrać offline'owe mapy Google lub aplikację SBB dla połączeń kolejowych.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery" id="galeria" style="background-color: var(--light-bg);">
+        <div class="container">
+            <h2 class="section-title">Galeria zdjęć Renatki</h2>
+            <p class="section-subtitle">Inspirujące zdjęcia z poprzednich wypraw i wizualizacje nadchodzącej przygody</p>
+            
+            <div class="gallery-container">
+                <div class="gallery-item">
+                    <img src="/api/placeholder/800/600" alt="Jungfraujoch - widok na lodowiec Aletsch" class="gallery-img">
+                    <div class="gallery-caption">Jungfraujoch - widok na lodowiec Aletsch</div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="/api/placeholder/800/600" alt="Matterhorn o zachodzie słońca" class="gallery-img">
+                    <div class="gallery-caption">Matterhorn o zachodzie słońca</div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="/api/placeholder/800/600" alt="Dolina Lauterbrunnen z wodospadami" class="gallery-img">
+                    <div class="gallery-caption">Dolina Lauterbrunnen z wodospadami</div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="/api/placeholder/800/600" alt="Jezioro Genewskie i tarasy winnic Lavaux" class="gallery-img">
+                    <div class="gallery-caption">Jezioro Genewskie i tarasy winnic Lavaux</div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="/api/placeholder/800/600" alt="Most Kapellbrücke w Lucernie" class="gallery-img">
+                    <div class="gallery-caption">Most Kapellbrücke w Lucernie</div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="/api/placeholder/800/600" alt="Kamper na tle gór w Grindelwaldzie" class="gallery-img">
+                    <div class="gallery-caption">Kamper na tle gór w Grindelwaldzie</div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="/api/placeholder/800/600" alt="Kolejka zębata na Pilatus" class="gallery-img">
+                    <div class="gallery-caption">Kolejka zębata na Pilatus</div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="/api/placeholder/800/600" alt="Stare Miasto w Zurychu" class="gallery-img">
+                    <div class="gallery-caption">Stare Miasto w Zurychu</div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="/api/placeholder/800/600" alt="Kemping z widokiem na góry" class="gallery-img">
+                    <div class="gallery-caption">Kemping z widokiem na góry</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Renatka w Szwajcarii</h3>
+                    <p>Osobisty przewodnik Renatki po Szwajcarii dla miłośników kamperingu i pięknych widoków. Dołącz do mojej alpejskiej przygody lub zainspiruj się, planując własną trasę!</p>
+                </div>
+                
+            <div class="copyright">
+                <p>&copy; 2025 Renatka w Szwajcarii. Wszelkie prawa zastrzeżone.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const closeMenu = document.querySelector('.close-menu');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.add('active');
+        });
+        
+        closeMenu.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+        });
+        
+        // Close menu when clicking on a nav link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+        
+        // Navbar scroll effect
+        const navbar = document.querySelector('.navbar');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
