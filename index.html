@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -5,19 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Renatka w Szwajcarii | Alpejska Przygoda Kamperem 2025</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         /* --- Variables --- */
         :root {
-            --primary: #1d4e89;
-            --secondary: #16a085;
-            --light-bg: #f6f9fc;
-            --dark-text: #2c3e50;
-            --light-text: #ecf0f1;
-            --accent: #e74c3c;
+            --primary: #1e3a8a;
+            --secondary: #10b981;
+            --accent: #f97316;
+            --dark-text: #0f172a;
+            --light-text: #f1f5f9;
             --card-bg: #ffffff;
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            --border-radius: 12px;
-            --transition: all 0.3s ease;
+            --card-bg-alt: #f8fafc;
+            --light-bg: #e2e8f0;
+            --dark-bg: #1e293b;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --shadow-strong: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --border-radius: 16px;
+            --border-radius-lg: 24px;
+            --border-radius-full: 9999px;
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Montserrat', sans-serif;
         }
 
         /* --- Base Styles --- */
@@ -28,10 +39,10 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: var(--font-body);
             color: var(--dark-text);
-            line-height: 1.6;
-            background-color: var(--light-bg);
+            line-height: 1.7;
+            background-color: #fff;
             overflow-x: hidden;
         }
 
@@ -46,10 +57,10 @@
         }
 
         h1, h2, h3, h4, h5 {
+            font-family: var(--font-display);
             font-weight: 700;
             line-height: 1.2;
-            margin-bottom: 1rem;
-            color: var(--primary);
+            margin-bottom: 1.5rem;
         }
 
         p {
@@ -58,89 +69,271 @@
 
         img {
             max-width: 100%;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-        }
-
-        section {
-            padding: 5rem 0;
+            height: auto;
+            display: block;
         }
 
         .container {
             width: 100%;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 2rem;
+            position: relative;
+            z-index: 1;
         }
 
         .btn {
             display: inline-block;
-            padding: 0.8rem 1.5rem;
+            padding: 1rem 2rem;
             background-color: var(--primary);
             color: var(--light-text);
-            border-radius: 50px;
+            border-radius: var(--border-radius-full);
             font-weight: 600;
             transition: var(--transition);
             cursor: pointer;
             border: none;
             box-shadow: var(--shadow);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
         }
 
         .btn:hover {
             background-color: var(--secondary);
-            transform: translateY(-3px);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-strong);
+            color: var(--light-text);
         }
 
         .section-title {
-            text-align: center;
-            margin-bottom: 4rem;
-            font-size: 2.5rem;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent);
         }
 
         .section-subtitle {
-            text-align: center;
-            margin-bottom: 2rem;
             color: var(--secondary);
-            font-weight: 400;
-            font-size: 1.2rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Preloader */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loader {
+            position: relative;
+            width: 200px;
+            height: 200px;
+        }
+
+        .mountain {
+            position: absolute;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 80px solid var(--primary);
+            bottom: 0;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: mountain-rise 3s forwards;
+        }
+
+        .mountain:nth-child(1) {
+            left: 0;
+            animation-delay: 0.2s;
+            border-bottom-color: var(--primary);
+        }
+
+        .mountain:nth-child(2) {
+            left: 50px;
+            animation-delay: 0.4s;
+            border-bottom-color: var(--secondary);
+            border-left: 40px solid transparent;
+            border-right: 40px solid transparent;
+            border-bottom-width: 70px;
+        }
+
+        .mountain:nth-child(3) {
+            left: 110px;
+            animation-delay: 0.6s;
+            border-bottom-color: var(--accent);
+            border-left: 30px solid transparent;
+            border-right: 30px solid transparent;
+            border-bottom-width: 60px;
+        }
+
+        .loader-text {
+            position: absolute;
+            bottom: -40px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 3px;
+            opacity: 0;
+            animation: fade-in 1s forwards 1s;
+        }
+
+        @keyframes mountain-rise {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fade-in {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
         }
 
         /* --- Header --- */
         .header {
             position: relative;
             height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('img/body.jpg') center/cover no-repeat;
+            overflow: hidden;
+            background-color: #0c0c0c;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            object-fit: cover;
+            opacity: 0.6;
+            transform: scale(1.1);
+            animation: gentle-zoom 30s infinite alternate ease-in-out;
+        }
+
+        @keyframes gentle-zoom {
+            0% {
+                transform: scale(1.1) translate(0, 0);
+            }
+            100% {
+                transform: scale(1.3) translate(-3%, -3%);
+            }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            align-items: flex-start;
             justify-content: center;
-            text-align: center;
+            height: 100%;
             color: var(--light-text);
-            padding: 0 1rem;
+            max-width: 650px;
+            padding-left: 5%;
+            padding-top: 100px; /* Added padding to move content down */
         }
 
         .header-content h1 {
-            font-size: 3.5rem;
+            font-size: 5rem;
             color: var(--light-text);
             margin-bottom: 1.5rem;
-            animation: fadeIn 1s ease-in;
+            line-height: 1.1;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slide-up 1s forwards 0.5s;
+        }
+        
+        .header-content h1 span {
+            display: inline-block;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            background-color: rgba(30, 58, 138, 0.7);
+            padding: 0 15px;
+            margin-bottom: 5px;
         }
 
         .header-content p {
             font-size: 1.3rem;
-            max-width: 800px;
-            margin: 0 auto 2rem;
-            animation: fadeIn 1.5s ease-in;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slide-up 1s forwards 0.7s;
         }
 
-        @keyframes fadeIn {
+        .header-scroll {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            opacity: 0;
+            animation-delay: 2s;
+        }
+
+        .header-scroll i {
+            font-size: 2rem;
+            color: var(--light-text);
+            animation: fade-in 1s forwards 2s;
+        }
+
+        @keyframes slide-up {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-20px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slide-up 1s forwards 0.9s;
         }
 
         /* --- Navigation --- */
@@ -150,15 +343,15 @@
             left: 0;
             width: 100%;
             z-index: 1000;
-            padding: 1rem 0;
+            padding: 1.5rem 0;
             transition: var(--transition);
             background-color: transparent;
         }
 
         .navbar.scrolled {
-            background-color: var(--card-bg);
-            box-shadow: var(--shadow);
-            padding: 0.7rem 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 1rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
         .navbar.scrolled .nav-link {
@@ -176,9 +369,16 @@
         }
 
         .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 900;
             color: var(--light-text);
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo span {
+            color: var(--accent);
         }
 
         .nav-links {
@@ -188,19 +388,23 @@
 
         .nav-link {
             color: var(--light-text);
-            margin-left: 2rem;
-            font-weight: 600;
+            margin-left: 2.5rem;
+            font-weight: 500;
             position: relative;
+            padding: 0.5rem 0;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .nav-link::after {
             content: '';
             position: absolute;
-            bottom: -5px;
+            bottom: 0;
             left: 0;
             width: 0;
             height: 2px;
-            background-color: var(--secondary);
+            background-color: var(--accent);
             transition: var(--transition);
         }
 
@@ -213,43 +417,161 @@
             cursor: pointer;
             font-size: 1.5rem;
             color: var(--light-text);
+            position: relative;
+            z-index: 10;
         }
 
-        /* --- Hero Section --- */
-        .hero-cta {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
+        /* Custom cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.2s ease;
+            transform: translate(-50%, -50%);
+            display: none;
         }
 
-        /* --- Itinerary Section --- */
-        .itinerary {
+        .cursor-follower {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 122, 69, 0.3);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            mix-blend-mode: difference;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
+
+        /* --- Main Sections --- */
+        section {
+            padding: 8rem 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: left;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .bg-light {
             background-color: var(--light-bg);
+        }
+
+        .bg-white {
+            background-color: white;
+        }
+
+        /* About Section */
+        .about-section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 35%;
+            height: 100%;
+            z-index: 0;
+            background-color: var(--light-bg);
+            clip-path: polygon(100px 0, 100% 0, 100% 100%, 0 100%);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-strong);
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: -25px;
+            left: -25px;
+            width: 100%;
+            height: 100%;
+            border: 5px solid var(--accent);
+            border-radius: var(--border-radius-lg);
+            z-index: -1;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* Itinerary Section */
+        .itinerary {
+            background-color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .itinerary-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            background-size: 30px 30px;
+            background-image: linear-gradient(to right, var(--primary) 1px, transparent 1px),
+                            linear-gradient(to bottom, var(--primary) 1px, transparent 1px);
         }
 
         .timeline {
             position: relative;
-            max-width: 1200px;
-            margin: 0 auto;
+            max-width: 1400px;
+            margin: 6rem auto 0;
         }
 
         .timeline::after {
             content: '';
             position: absolute;
             width: 6px;
-            background-color: var(--primary);
+            background-image: linear-gradient(to bottom, var(--primary), var(--secondary));
             top: 0;
             bottom: 0;
             left: 50%;
             margin-left: -3px;
-            border-radius: 10px;
+            border-radius: var(--border-radius-full);
         }
 
         .day {
             padding: 10px 40px;
             position: relative;
             width: 50%;
-            animation: fadeIn 1s ease-in;
+            perspective: 1000px;
+            margin-bottom: 4rem;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .day.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .day-left {
@@ -261,43 +583,59 @@
         }
 
         .day-content {
-            padding: 1.5rem;
-            background-color: var(--card-bg);
+            padding: 2.5rem;
+            background-color: white;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
             transition: var(--transition);
+            transform: rotateY(10deg);
+            transform-origin: left center;
+            border-top: 5px solid var(--primary);
+        }
+
+        .day-right .day-content {
+            transform: rotateY(-10deg);
+            transform-origin: right center;
+            border-top-color: var(--secondary);
         }
 
         .day-content:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            transform: rotateY(0) translateY(-10px);
+            box-shadow: var(--shadow-strong);
         }
 
         .day-content h3 {
             color: var(--primary);
             margin-bottom: 0.5rem;
+            font-size: 2rem;
         }
 
         .day-date {
-            color: var(--secondary);
+            color: var(--accent);
             font-weight: 600;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             display: block;
+            font-size: 1.1rem;
         }
 
         .day-info {
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .day-info p {
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
         }
 
         .day-img {
-            margin-top: 1rem;
-            height: 200px;
+            height: 250px;
             width: 100%;
             object-fit: cover;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .day-content:hover .day-img {
+            transform: scale(1.03);
         }
 
         /* Circles on timeline */
@@ -307,51 +645,271 @@
             width: 25px;
             height: 25px;
             right: -13px;
-            background-color: var(--primary);
-            border: 4px solid var(--secondary);
+            background-color: white;
+            border: 4px solid var(--primary);
             top: 15px;
             border-radius: 50%;
             z-index: 1;
+            transition: var(--transition);
         }
 
         .day-right::after {
             left: -12px;
+            border-color: var(--secondary);
         }
 
-        /* --- Tips Section --- */
+        .day:hover::after {
+            background-color: var(--accent);
+            transform: scale(1.2);
+        }
+
+        /* Views Section */
+        .views {
+            background-color: var(--light-bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .views-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 300px);
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .view-card {
+            position: relative;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .view-card:nth-child(1) {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .view-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-strong);
+        }
+
+        .view-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .view-card:hover .view-img {
+            transform: scale(1.1);
+        }
+
+        .view-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));
+            color: var(--light-text);
+            transform: translateY(70%);
+            transition: var(--transition);
+        }
+
+        .view-card:hover .view-content {
+            transform: translateY(0);
+        }
+
+        .view-content h3 {
+            font-size: 1.5rem;
+            color: var(--light-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .view-content p {
+            opacity: 0;
+            transition: opacity 0.3s ease 0.1s;
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+
+        .view-card:hover .view-content p {
+            opacity: 1;
+        }
+/* Trails Section */
+.trails {
+    background-color: white;
+    position: relative;
+}
+
+.trail-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+.trail-card {
+    border-radius: var(--border-radius);
+    background-color: var(--light-bg);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    position: relative;
+}
+
+.trail-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-strong);
+}
+
+.trail-img {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.trail-content {
+    padding: 2rem;
+}
+
+.trail-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.trail-info {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.trail-stat {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.trail-stat i {
+    color: var(--accent);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .trail-container {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .trail-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .trail-content {
+        padding: 1.5rem;
+    }
+}
+
+        /* Tips Section */
         .tips {
-            background-color: var(--card-bg);
+            background-color: var(--light-bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tips-decoration {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            width: 30%;
+            background-color: var(--primary);
+            clip-path: polygon(30% 0, 100% 0, 100% 100%, 0 100%);
+            opacity: 0.05;
+            z-index: 0;
         }
 
         .tips-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2.5rem;
+            position: relative;
+            z-index: 1;
         }
 
         .tip-card {
-            background-color: var(--light-bg);
-            padding: 2rem;
+            background-color: white;
+            padding: 2.5rem;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
             transition: var(--transition);
+            position: relative;
+            overflow: hidden;
         }
 
         .tip-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-strong);
         }
 
         .tip-icon {
             font-size: 2.5rem;
-            color: var(--secondary);
-            margin-bottom: 1rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
         }
 
-        /* --- Gallery Section --- */
+        .tip-card h3 {
+            position: relative;
+            z-index: 1;
+            font-size: 1.5rem;
+        }
+
+        .tip-card p {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 0;
+        }
+
+        .tip-card::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 100px;
+            height: 100px;
+            background-color: var(--light-bg);
+            border-radius: 50%;
+            transition: var(--transition);
+            z-index: 0;
+        }
+
+        .tip-card:hover::before {
+            transform: scale(3);
+            background-color: rgba(16, 185, 129, 0.1);
+        }
+
+        /* Gallery Section */
+        .gallery {
+            background-color: white;
+            position: relative;
+            padding-bottom: 12rem;
+        }
+
         .gallery-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 250px;
             gap: 1.5rem;
         }
 
@@ -359,8 +917,26 @@
             position: relative;
             overflow: hidden;
             border-radius: var(--border-radius);
-            height: 250px;
             cursor: pointer;
+            grid-column: span 1;
+            grid-row: span 1;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: var(--shadow-strong);
+        }
+
+        .gallery-item:nth-child(1),
+        .gallery-item:nth-child(6) {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .gallery-item:nth-child(4) {
+            grid-column: span 2;
         }
 
         .gallery-img {
@@ -379,9 +955,9 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(0, 0, 0, 0.7);
+            background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));
             color: var(--light-text);
-            padding: 1rem;
+            padding: 1.5rem;
             transform: translateY(100%);
             transition: var(--transition);
         }
@@ -392,73 +968,74 @@
 
         /* --- Footer --- */
         .footer {
-            background-color: var(--primary);
+            background-color: var(--dark-bg);
             color: var(--light-text);
-            padding: 4rem 0 2rem;
+            padding: 6rem 0 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-mountain {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            background-image: url('https://cdn.pixabay.com/photo/2024/01/07/10/59/mountains-8492823_640.jpg');
+            background-size: cover;
+            background-position: center top;
+            opacity: 0.1;
         }
 
         .footer-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 4rem;
+            position: relative;
+            z-index: 1;
         }
 
         .footer-column h3 {
             color: var(--light-text);
             margin-bottom: 1.5rem;
+            font-size: 2rem;
             position: relative;
-            padding-bottom: 0.5rem;
+            display: inline-block;
         }
 
         .footer-column h3::after {
             content: '';
             position: absolute;
+            bottom: -10px;
             left: 0;
-            bottom: 0;
-            width: 50px;
-            height: 2px;
-            background-color: var(--secondary);
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-links a {
-            color: var(--light-text);
-            opacity: 0.8;
-            transition: var(--transition);
-        }
-
-        .footer-links a:hover {
-            opacity: 1;
-            padding-left: 5px;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent);
         }
 
         .social-links {
             display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
+            gap: 1.5rem;
+            margin-top: 2rem;
         }
 
         .social-icon {
             display: inline-flex;
             justify-content: center;
             align-items: center;
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             background-color: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             transition: var(--transition);
+            color: var(--light-text);
+            font-size: 1.2rem;
         }
 
         .social-icon:hover {
-            background-color: var(--secondary);
-            transform: translateY(-3px);
+            background-color: var(--accent);
+            transform: translateY(-5px);
+            color: var(--light-text);
         }
 
         .copyright {
@@ -466,24 +1043,153 @@
             text-align: center;
             padding-top: 2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
         }
 
         /* --- Responsive Styles --- */
-        @media (max-width: 992px) {
-            .section-title {
-                font-size: 2rem;
+        @media (max-width: 1200px) {
+            .container {
+                max-width: 1000px;
             }
 
             .header-content h1 {
-                font-size: 2.5rem;
+                font-size: 4rem;
+            }
+
+            .view-card:nth-child(1) {
+                grid-column: span 3;
+                grid-row: span 1;
+            }
+
+            .views-grid {
+                grid-template-rows: repeat(3, 250px);
+            }
+        }
+
+        @media (max-width: 991px) {
+            .section-title {
+                font-size: 2.8rem;
+            }
+
+            .header-content h1 {
+                font-size: 3.5rem;
             }
 
             .header-content p {
                 font-size: 1.1rem;
             }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .about-bg {
+                display: none;
+            }
+
+            .views-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .view-card:nth-child(1) {
+                grid-column: span 2;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+        }
+
+        /* Fullscreen Menu Overlay */
+        .nav-links {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(30, 58, 138, 0.95); /* Primary color with opacity */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+            backdrop-filter: blur(8px);
+        }
+
+        .nav-links.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .nav-link {
+            color: var(--light-text);
+            margin: 1.5rem 0;
+            font-size: 2rem;
+            font-family: var(--font-display);
+            font-weight: 700;
+            position: relative;
+            transform: translateY(50px);
+            opacity: 0;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+
+        .nav-links.active .nav-link {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .nav-links li:nth-child(1) .nav-link { transition-delay: 0.1s; }
+        .nav-links li:nth-child(2) .nav-link { transition-delay: 0.2s; }
+        .nav-links li:nth-child(3) .nav-link { transition-delay: 0.3s; }
+        .nav-links li:nth-child(4) .nav-link { transition-delay: 0.4s; }
+        .nav-links li:nth-child(5) .nav-link { transition-delay: 0.5s; }
+        .nav-links li:nth-child(6) .nav-link { transition-delay: 0.6s; }
+
+        .nav-link::after {
+            background-color: var(--accent);
+            height: 3px;
+            bottom: -5px;
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--light-text);
+            z-index: 2001;
+            transition: transform 0.3s ease;
+        }
+        
+        .close-menu:hover {
+            transform: rotate(90deg);
+        }
+
+        .mobile-menu-btn {
+            display: block;
+            z-index: 2001;
         }
 
         @media (max-width: 768px) {
+            section {
+                padding: 5rem 0;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .container {
+                padding: 0 1.5rem;
+            }
+
             .timeline::after {
                 left: 31px;
             }
@@ -502,73 +1208,101 @@
                 left: 18px;
             }
 
-            .mobile-menu-btn {
-                display: block;
+            .day-content, .day-right .day-content {
+                transform: none;
             }
-
-            .nav-links {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                height: 100vh;
-                width: 70%;
-                background-color: var(--card-bg);
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                transition: var(--transition);
-                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
-            }
-
-            .nav-links.active {
-                right: 0;
-            }
-
+            
             .nav-link {
-                color: var(--dark-text);
-                margin: 1.5rem 0;
+                font-size: 1.5rem;
+                margin: 1.2rem 0;
             }
-
+            
             .close-menu {
-                position: absolute;
                 top: 20px;
                 right: 20px;
-                font-size: 1.5rem;
-                cursor: pointer;
+            }
+
+            .header-content {
+                padding-left: 1.5rem;
+                align-items: center;
+                text-align: center;
+                max-width: 100%;
+            }
+
+            .header-content h1 {
+                font-size: 3rem;
+            }
+
+            .views-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .view-card:nth-child(1) {
+                grid-column: span 1;
+            }
+
+            .gallery-container {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (max-width: 576px) {
             section {
-                padding: 3rem 0;
+                padding: 4rem 0;
             }
 
             .header-content h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
 
             .btn {
-                padding: 0.7rem 1.2rem;
+                padding: 0.8rem 1.2rem;
                 font-size: 0.9rem;
             }
 
             .tip-card {
-                padding: 1.5rem;
+                padding: 2rem;
+            }
+
+            .gallery-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .gallery-item:nth-child(1),
+            .gallery-item:nth-child(4),
+            .gallery-item:nth-child(6) {
+                grid-column: span 1;
+                grid-row: span 1;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="loader">
+            <div class="mountain"></div>
+            <div class="mountain"></div>
+            <div class="mountain"></div>
+            <div class="loader-text">RENATKA W SZWAJCARII</div>
+        </div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container nav-container">
-            <a href="#" class="logo">Renatka w Szwajcarii</a>
+            <a href="#" class="logo">Renatka<span>.</span></a>
             
             <ul class="nav-links">
                 <li><a href="#o-renatce" class="nav-link">O Renatce</a></li>
                 <li><a href="#plan" class="nav-link">Plan podróży</a></li>
-                <li><a href="#widoki" class="nav-link">Ulubione widoki</a></li>
-                <li><a href="#szlaki" class="nav-link">Szlaki górskie</a></li>
+                <li><a href="#widoki" class="nav-link">Widoki</a></li>
+                <li><a href="#szlaki" class="nav-link">Szlaki</a></li>
                 <li><a href="#porady" class="nav-link">Porady</a></li>
                 <li><a href="#galeria" class="nav-link">Galeria</a></li>
                 <div class="close-menu"><i class="fas fa-times"></i></div>
@@ -582,34 +1316,69 @@
 
     <!-- Header -->
     <header class="header">
-        <div class="header-content">
-            <h1>Renatka podbija Alpy!</h1>
-            <p>Dołącz do Renatki w jej niezapomnianej podróży kamperem przez najpiękniejsze widoki i szlaki górskie Szwajcarii od 27 kwietnia do 3 maja 2025 roku.</p>
-            <div class="hero-cta">
-                <a href="#plan" class="btn">Plan podróży</a>
-                <a href="#porady" class="btn" style="background-color: var(--secondary);">Praktyczne porady</a>
+        <img src="https://cdn.pixabay.com/photo/2024/01/07/10/59/mountains-8492823_1280.jpg" alt="Swiss Alps" class="hero-bg">
+        <div class="container">
+            <div class="header-content">
+                <h1><span>Renatka</span> <span>podbija</span><br><span>Alpy 2025</span></h1>
+                <p>Dołącz do Renatki w jej niezapomnianej podróży kamperem przez najpiękniejsze widoki i szlaki górskie Szwajcarii od 27 kwietnia do 3 maja 2025.</p>
+                <div class="hero-cta">
+                    <a href="#plan" class="btn">Plan podróży</a>
+                    <a href="#porady" class="btn" style="background-color: var(--accent);">Praktyczne porady</a>
+                </div>
             </div>
+        </div>
+        <div class="header-scroll">
+            <i class="fas fa-angle-down"></i>
         </div>
     </header>
 
+    <!-- About Renatka Section -->
+    <section class="about-section" id="o-renatce">
+        <div class="about-bg"></div>
+        <div class="container">
+            <div class="section-header">
+                <p class="section-subtitle">Poznaj mnie</p>
+                <h2 class="section-title">O Renatce</h2>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="img/renatka.jpg" alt="Renatka w górach">
+                </div>
+                <div class="about-text">
+                    <p>Cześć! Jestem Renatka i kocham podróże kamperem! Od lat marzę o dokładnym zwiedzeniu alpejskich zakątków Szwajcarii i wreszcie udało mi się zaplanować tę wyprawę w maju 2025 roku.</p>
+                    
+                    <p>Moja pasja do gór, fotografii i lokalnych kuchni zaprowadziła mnie do stworzenia tej trasy, która łączy najpiękniejsze widoki, urocze miasteczka i niezapomniane szlaki górskie.</p>
+                    
+                    <p>Uwielbiam odkrywać nowe miejsca w swoim tempie, zatrzymywać się spontanicznie w miejscach, które skradną moje serce, i dzielić się tymi doświadczeniami z innymi. Ten przewodnik to efekt wielu godzin planowania, aby wycisnąć maksimum wrażeń z każdego dnia podróży!</p>
+                    
+                    <a href="#plan" class="btn">Zobacz moją trasę</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Itinerary Section -->
     <section class="itinerary" id="plan">
+        <div class="itinerary-bg"></div>
         <div class="container">
-            <h2 class="section-title">Plan podróży Renatki</h2>
-            <p class="section-subtitle">Szczegółowy harmonogram 7-dniowej wyprawy Renatki kamperem po Szwajcarii</p>
+            <div class="section-header">
+                <p class="section-subtitle">Dzień po dniu</p>
+                <h2 class="section-title">Plan podróży</h2>
+            </div>
             
             <div class="timeline">
                 <!-- Day 1 -->
                 <div class="day day-left">
                     <div class="day-content">
                         <h3>Dzień 1</h3>
-                        <span class="day-date">27 kwietnia: Przejazd do Berna i nocleg w okolicach Interlaken</span>
+                        <span class="day-date">27 kwietnia: Lucerna i góra Pilatus</span>
                         <div class="day-info">
-                            <p><strong>Trasa:</strong> Bazylea → Berno (około 1,5 godziny jazdy) → Interlaken (50 minut)</p>
-                            <p><strong>Berno:</strong> Zwiedzanie historycznego centrum wpisanego na listę UNESCO, w tym Katedry św. Wincentego i Zytglogge – średniowiecznej wieży zegarowej. Spacer nad rzeką Aare.</p>
-                            <p><strong>Interlaken:</strong> Nocleg na Camping Lazy Rancho (adres: Seestrasse 50), który zapewnia pełne zaplecze sanitarne i widoki na Jungfrau. Wieczorny spacer wzdłuż rzeki Aare lub jeziora Brienz.</p>
+                            <p><strong>Trasa:</strong> Bazylea → Lucerna (około 1 godzina jazdy)</p>
+                            <p><strong>Lucerna:</strong> Zwiedzanie historycznego centrum z mostem Kapellbrücke, pomnikiem Umierającego Lwa oraz rejs statkiem po Jeziorze Czterech Kantonów.</p>
+                            <p><strong>Góra Pilatus:</strong> Wjazd najbardziej stromą kolejką zębatą świata (nachylenie 48%) na szczyt (2128 m n.p.m.).</p>
                         </div>
-                        <img src="img/bern.jpg" alt="Berno i Interlaken" class="day-img">
+                        <img src="https://cdn.pixabay.com/photo/2016/09/19/22/46/lake-1681485_1280.jpg" alt="Lucerna i góra Pilatus" class="day-img">
                     </div>
                 </div>
 
@@ -617,14 +1386,13 @@
                 <div class="day day-right">
                     <div class="day-content">
                         <h3>Dzień 2</h3>
-                        <span class="day-date">28 kwietnia: Dolina Lauterbrunnen i Grindelwald</span>
+                        <span class="day-date">28 kwietnia: Góra Rigi i panoramiczny szlak</span>
                         <div class="day-info">
-                            <p><strong>Trasa:</strong> Interlaken → Lauterbrunnen (20 minut) → Grindelwald (30 minut)</p>
-                            <p><strong>Lauterbrunnen:</strong> Wędrówka szlakiem do Staubbachfall (wodospad o wysokości 297 m) oraz Trümmelbachfälle – serii podziemnych wodospadów wykutych w skale. Trasa o długości 4 km (łatwa, czas: 1,5 godziny).</p>
-                            <p><strong>Grindelwald:</strong> Kolejką linową na First (2168 m n.p.m.), skąd rozciąga się panorama Eigeru, Möncha i Jungfrau. Dla śmiałych – przejście First Cliff Walk – wiszącej kładki nad przepaścią.</p>
-                            <p><strong>Nocleg:</strong> Kemping Gletscherdorf w Grindelwaldzie (adres: Obere Gletscherstrasse 1), z widokiem na lodowiec Unterer Grindelwaldgletscher.</p>
+                            <p><strong>Trasa:</strong> Lucerna → Vitznau (30 minut) → Góra Rigi</p>
+                            <p><strong>Góra Rigi:</strong> Wjazd historyczną kolejką zębatą z Vitznau na Rigi Kulm (1798 m n.p.m.) – pierwszą kolejką górską w Europie.</p>
+                            <p><strong>Panorama Trail:</strong> Wędrówka malowniczym szlakiem Rigi Panorama Trail (10 km, czas: około 4 godziny).</p>
                         </div>
-                        <img src="img/dolina.jpg" alt="Dolina Lauterbrunnen i Grindelwald" class="day-img">
+                        <img src="https://cdn.pixabay.com/photo/2020/06/24/20/41/truebsee-5337646_1280.jpg" alt="Góra Rigi i panoramiczny szlak" class="day-img">
                     </div>
                 </div>
 
@@ -632,14 +1400,13 @@
                 <div class="day day-left">
                     <div class="day-content">
                         <h3>Dzień 3</h3>
-                        <span class="day-date">29 kwietnia: Jungfraujoch – Top of Europe</span>
+                        <span class="day-date">29 kwietnia: Interlaken i okolice</span>
                         <div class="day-info">
-                            <p><strong>Trasa:</strong> Grindelwald → Kleine Scheidegg (kolejką Wengernalpbahn) → Jungfraujoch</p>
-                            <p><strong>Jungfraujoch:</strong> Przejazd kolejką górską na wysokość 3454 m n.p.m. Zwiedzanie Lodowego Pałacu, tarasu widokowego Sphinx oraz spacer po lodowcu Aletsch. Uwaga: Ze względu na warunki śnieżne, zaleca się zakup biletów online (cena: ok. 210 CHF).</p>
-                            <p><strong>Alternatywa:</strong> Łagodniejszy szlak z Wengen do Männlichen (5 km, czas: 2 godziny), oferujący widoki na dolinę Lauterbrunnen.</p>
-                            <p><strong>Nocleg:</strong> Powrót do kempingu w Grindelwaldzie.</p>
+                            <p><strong>Trasa:</strong> Lucerna/Spiez → Interlaken (30-50 minut)</p>
+                            <p><strong>Interlaken:</strong> Malownicze miasto położone między jeziorami Thun i Brienz. Spacer po głównej ulicy Höheweg z widokiem na Jungfrau.</p>
+                            <p><strong>Harder Kulm:</strong> Wjazd kolejką na punkt widokowy Harder Kulm (1322 m n.p.m.), nazywany "Top of Interlaken".</p>
                         </div>
-                        <img src="img/jungfraujoche.jpg" alt="Jungfraujoch - Top of Europe" class="day-img">
+                        <img src="https://cdn.pixabay.com/photo/2018/02/17/22/15/water-3161063_1280.jpg" alt="Interlaken i okolice" class="day-img">
                     </div>
                 </div>
 
@@ -647,14 +1414,13 @@
                 <div class="day day-right">
                     <div class="day-content">
                         <h3>Dzień 4</h3>
-                        <span class="day-date">30 kwietnia: Przejazd do Zermatt i widok na Matterhorn</span>
+                        <span class="day-date">30 kwietnia: Grindelwald i First</span>
                         <div class="day-info">
-                            <p><strong>Trasa:</strong> Grindelwald → Zermatt (3,5 godziny, przez przełęcz Grimselpass)</p>
-                            <p><strong>Zermatt:</strong> Miasto dostępne tylko dla pojazdów elektrycznych – kamper należy zostawić na parkingu Täsch i przesiąść się w pociąg (czas: 12 minut). Kolejką linową na Gornergrat (3089 m n.p.m.) – punkt widokowy na Matterhorn i alpejskie szczyty.</p>
-                            <p><strong>Szlaki górskie:</strong> 5-Seen-Weg („Szlak Pięciu Jezior"): Trasa o długości 9,5 km (czas: 3 godziny), prowadząca obok jezior Stellisee, Grindjisee i Grünsee. Wymagane buty trekkingowe.</p>
-                            <p><strong>Nocleg:</strong> Kemping Matterhorn w Täsch (adres: Bahnhofstrasse 30), z bezpłatnym shuttle do Zermatt.</p>
+                            <p><strong>Trasa:</strong> Interlaken → Grindelwald (30 minut)</p>
+                            <p><strong>Grindelwald:</strong> Malownicza alpejska wioska u podnóża Eigeru. Kolejką linową na First (2168 m n.p.m.).</p>
+                            <p><strong>First Cliff Walk:</strong> Przejście po wiszącej kładce nad przepaścią z platformą widokową.</p>
                         </div>
-                        <img src="img/matterhorns.jpg" alt="Zermatt i Matterhorn" class="day-img">
+                        <img src="https://cdn.pixabay.com/photo/2020/09/01/06/10/lake-5534341_1280.jpg" alt="Grindelwald i First" class="day-img">
                     </div>
                 </div>
 
@@ -662,14 +1428,13 @@
                 <div class="day day-left">
                     <div class="day-content">
                         <h3>Dzień 5</h3>
-                        <span class="day-date">1 maja: Jezioro Genewskie i Lavaux</span>
+                        <span class="day-date">1 maja: Oeschinensee</span>
                         <div class="day-info">
-                            <p><strong>Trasa:</strong> Zermatt → Montreux (2,5 godziny) → Lozanna (30 minut)</p>
-                            <p><strong>Montreux:</strong> Spacer nad Jeziorem Genewskim wzdłuż Promenady Freddiego Mercury'ego oraz zwiedzanie średniowiecznego zamku Chillon.</p>
-                            <p><strong>Lavaux:</strong> Winiarskie tarasy wpisane na listę UNESCO. Trasa piesza z Lutry do Rivaz (8 km, czas: 2,5 godziny) – widoki na jezioro i Alpy.</p>
-                            <p><strong>Nocleg:</strong> Kemping Lavaux w Cully (adres: Route de la Corniche 2), położony bezpośrednio nad jeziorem.</p>
+                            <p><strong>Trasa:</strong> Grindelwald → Kandersteg (1 godzina)</p>
+                            <p><strong>Oeschinensee:</strong> Turkusowe jezioro alpejskie położone na wysokości 1578 m n.p.m., otoczone majestatycznymi szczytami.</p>
+                            <p><strong>Szlaki piesze:</strong> Wybór tras o różnej trudności wokół jeziora, od łatwych spacerów po wymagające trasy widokowe.</p>
                         </div>
-                        <img src="img/lavaux.jpg" alt="Jezioro Genewskie i Lavaux" class="day-img">
+                        <img src="https://cdn.pixabay.com/photo/2022/10/24/17/50/mountains-7544027_1280.jpg" alt="Jezioro Oeschinensee" class="day-img">
                     </div>
                 </div>
 
@@ -677,14 +1442,13 @@
                 <div class="day day-right">
                     <div class="day-content">
                         <h3>Dzień 6</h3>
-                        <span class="day-date">2 maja: Lucerna i góra Pilatus</span>
+                        <span class="day-date">2 maja: Zermatt i Matterhorn</span>
                         <div class="day-info">
-                            <p><strong>Trasa:</strong> Lozanna → Lucerna (2 godziny)</p>
-                            <p><strong>Lucerna:</strong> Most Kapellbrücke, pomnik Umierający Lew oraz rejs statkiem po Jeziorze Czterech Kantonów. Dla miłośników techniki – wizyta w Muzeum Transportu.</p>
-                            <p><strong>Góra Pilatus:</strong> Wjazd najbardziej stromą kolejką zębatą świata (nachylenie 48%) na szczyt (2128 m n.p.m.). Szlak Dragon Path (4 km, czas: 1,5 godziny) prowadzi przez jaskinie i tarasy widokowe.</p>
-                            <p><strong>Nocleg:</strong> Kemping Camping Lido (adres: Lidostrasse 8), z bezpośrednim dostępem do jeziora.</p>
+                            <p><strong>Trasa:</strong> Kandersteg/Randa → Täsch (miasto jest niedostępne dla zwykłych pojazdów)</p>
+                            <p><strong>Zermatt:</strong> Kamper należy zostawić na parkingu w Täsch i przesiąść się w pociąg (czas: 12 minut).</p>
+                            <p><strong>Szlaki górskie:</strong> 5-Seen-Weg („Szlak Pięciu Jezior"): Trasa o długości 9,5 km, prowadząca obok jezior z widokiem na Matterhorn.</p>
                         </div>
-                        <img src="img/pilatus.jpg" alt="Lucerna i góra Pilatus" class="day-img">
+                        <img src="https://cdn.pixabay.com/photo/2019/10/08/18/13/matterhorn-4535693_1280.jpg" alt="Zermatt i Matterhorn" class="day-img">
                     </div>
                 </div>
 
@@ -692,13 +1456,13 @@
                 <div class="day day-left">
                     <div class="day-content">
                         <h3>Dzień 7</h3>
-                        <span class="day-date">3 maja: Zurych i powrót</span>
+                        <span class="day-date">3 maja: Dolina Lauterbrunnen</span>
                         <div class="day-info">
-                            <p><strong>Trasa:</strong> Lucerna → Zurych (40 minut) → lotnisko w Zurychu (30 minut)</p>
-                            <p><strong>Zurych:</strong> Spacer po Starym Mieście (Niederdorf), wizyta w Kunsthaus (muzeum sztuki) oraz wspinaczka na Uetliberg (871 m n.p.m.) – punkt widokowy na miasto i Alpy.</p>
-                            <p><strong>Ostatni posiłek:</strong> Restauracja Zeughauskeller, serwująca tradycyjne dania szwajcarskie.</p>
+                            <p><strong>Trasa:</strong> Zermatt → Lauterbrunnen (2,5 godziny)</p>
+                            <p><strong>Lauterbrunnen:</strong> Spektakularna dolina polodowcowa z pionowymi ścianami i 72 wodospadami.</p>
+                            <p><strong>Schilthorn/Mürren:</strong> Opcjonalnie wjazd kolejką gondolową do wioseczki Mürren, a następnie na szczyt Schilthorn (2970 m n.p.m.).</p>
                         </div>
-                        <img src="img/zurych.jpg" alt="Zurych" class="day-img">
+                        <img src="img/dolina.jpg" alt="Dolina Lauterbrunnen" class="day-img">
                     </div>
                 </div>
             </div>
@@ -708,130 +1472,172 @@
     <!-- Best Views Section -->
     <section class="views" id="widoki">
         <div class="container">
-            <h2 class="section-title">Ulubione widoki Renatki</h2>
-            <p class="section-subtitle">Odkryj najbardziej spektakularne panoramy alpejskie wybrane przez Renatkę</p>
+            <div class="section-header">
+                <p class="section-subtitle">Warte zobaczenia</p>
+                <h2 class="section-title">Ulubione widoki</h2>
+            </div>
             
-            <div class="tips-grid">
-                <div class="tip-card">
-                    <div class="tip-icon"><i class="fas fa-mountain"></i></div>
-                    <h3>Jungfraujoch</h3>
-                    <p>Na wysokości 3454 m n.p.m. znajduje się tzw. "Top of Europe" - spektakularne platformy widokowe pozwalające podziwiać lodowiec Aletsch oraz panoramę Alp Berneńskich. Sphinx Observation Deck oferuje widok na 360 stopni.</p>
+            <div class="views-grid">
+                <div class="view-card">
+                    <img src="https://cdn.pixabay.com/photo/2016/11/22/19/34/matterhorn-1850239_1280.jpg" alt="Matterhorn" class="view-img">
+                    <div class="view-content">
+                        <h3>Matterhorn</h3>
+                        <p>Słynny szczyt w kształcie piramidy najlepiej widoczny jest z Gornergrat (3089 m n.p.m.) lub ze szlaku 5-Seen-Weg, gdzie zobaczymy ikoniczny szczyt odbijający się w taflach alpejskich jezior.</p>
+                    </div>
                 </div>
                 
-                <div class="tip-card">
-                    <div class="tip-icon"><i class="fas fa-mountain"></i></div>
-                    <h3>Matterhorn</h3>
-                    <p>Słynny szczyt w kształcie piramidy najlepiej widoczny jest z Gornergrat (3089 m n.p.m.) lub ze szlaku 5-Seen-Weg, gdzie zobaczymy ikoniczny szczyt odbijający się w taflach alpejskich jezior.</p>
+                <div class="view-card">
+                    <img src="https://cdn.pixabay.com/photo/2020/08/01/10/04/alpine-5455013_1280.jpg" alt="Rigi Panorama" class="view-img">
+                    <div class="view-content">
+                        <h3>Rigi Panorama</h3>
+                        <p>Z "Królowej Gór" rozpościera się spektakularny widok na 13 jezior i panoramę Alp. Szczególnie malowniczy jest wschód słońca, gdy pierwsze promienie oświetlają alpejskie szczyty.</p>
+                    </div>
                 </div>
                 
-                <div class="tip-card">
-                    <div class="tip-icon"><i class="fas fa-water"></i></div>
-                    <h3>Lavaux</h3>
-                    <p>Tarasowe winnice nad Jeziorem Genewskim, wpisane na listę UNESCO. Spektakularny widok na jezioro, winnice i Alpy Francuskie z drugiej strony jeziora, szczególnie malowniczy o zachodzie słońca.</p>
+                <div class="view-card">
+                    <img src="https://cdn.pixabay.com/photo/2016/09/04/20/09/mountains-1645078_1280.jpg" alt="Jezioro Czterech Kantonów" class="view-img">
+                    <div class="view-content">
+                        <h3>Jezioro Czterech Kantonów</h3>
+                        <p>Otoczone alpejskimi szczytami, najlepiej podziwiać je podczas rejsu statkiem lub ze szczytu góry Pilatus. Widok na jezioro z historycznego miasta Lucerna jest równie urzekający.</p>
+                    </div>
                 </div>
                 
-                <div class="tip-card">
-                    <div class="tip-icon"><i class="fas fa-water"></i></div>
-                    <h3>Jezioro Czterech Kantonów</h3>
-                    <p>Otoczone alpejskimi szczytami, najlepiej podziwiać je podczas rejsu statkiem lub ze szczytu góry Pilatus. Widok na jezioro z historycznego miasta Lucerna jest równie urzekający.</p>
+                <div class="view-card">
+                    <img src="https://cdn.pixabay.com/photo/2021/02/19/08/58/mountains-6029596_1280.jpg" alt="Dolina Lauterbrunnen" class="view-img">
+                    <div class="view-content">
+                        <h3>Dolina Lauterbrunnen</h3>
+                        <p>Spektakularna dolina polodowcowa z pionowymi ścianami i 72 wodospadami, w tym Staubbachfall spadającym z wysokości blisko 300 metrów.</p>
+                    </div>
                 </div>
                 
-                <div class="tip-card">
-                    <div class="tip-icon"><i class="fas fa-hiking"></i></div>
-                    <h3>Dolina Lauterbrunnen</h3>
-                    <p>Spektakularna dolina polodowcowa z pionowymi ścianami i 72 wodospadami, w tym Staubbachfall spadającym z wysokości blisko 300 metrów. Widok z Männlichen lub Kleine Scheidegg pozwala objąć wzrokiem całą dolinę.</p>
-                </div>
-                
-                <div class="tip-card">
-                    <div class="tip-icon"><i class="fas fa-city"></i></div>
-                    <h3>Uetliberg</h3>
-                    <p>Góra górująca nad Zurychem (871 m n.p.m.), oferująca rozległe widoki na samo miasto, jezioro Zuryskie i - przy dobrej pogodzie - panoramę Alp w oddali.</p>
+                <div class="view-card">
+                    <img src="https://cdn.pixabay.com/photo/2022/12/24/11/27/lai-da-palpuogna-7675735_1280.jpg" alt="Oeschinensee" class="view-img">
+                    <div class="view-content">
+                        <h3>Oeschinensee</h3>
+                        <p>Turkusowe jezioro alpejskie otoczone stromymi skalnymi ścianami. Widok z punktu widokowego Oberbärgli pozwala podziwiać intensywny kolor wody i majestatyczne szczyty.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Mountain Trails Section -->
-    <section class="trails" id="szlaki" style="background-color: var(--light-bg);">
+    <section class="trails" id="szlaki">
         <div class="container">
-            <h2 class="section-title">Szlaki górskie Renatki</h2>
-            <p class="section-subtitle">Ulubione trasy piesze Renatki o różnym stopniu trudności</p>
-            
-            <div class="tips-grid">
-                <div class="tip-card">
-                    <h3>Männlichen – Kleine Scheidegg</h3>
-                    <p><strong>Długość:</strong> 4,7 km</p>
-                    <p><strong>Czas przejścia:</strong> około 1,5 godziny</p>
-                    <p><strong>Trudność:</strong> Łatwa</p>
-                    <p><strong>Atrakcje:</strong> Spektakularna panorama na Eiger, Mönch i Jungfrau, widok na dolinę Lauterbrunnen oraz Grindelwald.</p>
-                    <p><strong>Uwagi:</strong> Szlak dostępny po dotarciu kolejką linową na Männlichen, idealny dla rodzin z dziećmi.</p>
-                </div>
-                
-                <div class="tip-card">
-                    <h3>5-Seen-Weg (Szlak Pięciu Jezior)</h3>
-                    <p><strong>Długość:</strong> 9,5 km</p>
-                    <p><strong>Czas przejścia:</strong> około 3 godziny</p>
-                    <p><strong>Trudność:</strong> Średnia</p>
-                    <p><strong>Atrakcje:</strong> Trasa prowadzi obok pięciu malowniczych jezior (Stellisee, Grindjisee, Grünsee, Moosjisee i Leisee), z których każde oferuje inny widok na Matterhorn.</p>
-                    <p><strong>Uwagi:</strong> Wymagane buty trekkingowe, warto zabrać kijki.</p>
-                </div>
-                
-                <div class="tip-card">
-                    <h3>Oberrothorn</h3>
-                    <p><strong>Długość:</strong> 6 km</p>
-                    <p><strong>Czas przejścia:</strong> około 3 godziny</p>
-                    <p><strong>Trudność:</strong> Trudna</p>
-                    <p><strong>Atrakcje:</strong> Najwyżej położony szlak pieszy w Szwajcarii (3415 m n.p.m.), panorama na 38 czterotysięczników, w tym Monte Rosa, Matterhorn i Weisshorn.</p>
-                    <p><strong>Uwagi:</strong> Wymagana dobra kondycja i aklimatyzacja wysokościowa.</p>
-                </div>
-                
-                <div class="tip-card">
-                    <h3>Dragon Path (Pilatus)</h3>
-                    <p><strong>Długość:</strong> 4 km</p>
-                    <p><strong>Czas przejścia:</strong> około 1,5 godziny</p>
-                    <p><strong>Trudność:</strong> Średnia</p>
-                    <p><strong>Atrakcje:</strong> Szlak prowadzi przez jaskinie i tarasy widokowe, oferując spektakularne widoki na Jezioro Czterech Kantonów i okoliczne góry.</p>
-                    <p><strong>Uwagi:</strong> Szlak dostępny po wjeździe kolejką zębatą na szczyt Pilatus.</p>
-                </div>
-                
-                <div class="tip-card">
-                    <h3>Lavaux Vineyard Terraces</h3>
-                    <p><strong>Długość:</strong> 8 km</p>
-                    <p><strong>Czas przejścia:</strong> około 2,5 godziny</p>
-                    <p><strong>Trudność:</strong> Łatwa do średniej</p>
-                    <p><strong>Atrakcje:</strong> Trasa prowadzi przez tarasowe winnice wpisane na listę UNESCO, z widokami na Jezioro Genewskie i Alpy Francuskie.</p>
-                    <p><strong>Uwagi:</strong> Najlepiej wędrować wiosną lub jesienią, możliwość degustacji lokalnych win po drodze.</p>
-                </div>
-                
-                <div class="tip-card">
-                    <h3>Rigi – Küssnacht</h3>
-                    <p><strong>Długość:</strong> 10 km</p>
-                    <p><strong>Czas przejścia:</strong> około 4 godziny</p>
-                    <p><strong>Trudność:</strong> Łatwa</p>
-                    <p><strong>Atrakcje:</strong> Łagodna trasa przez alpejskie łąki z widokiem na Jezioro Czterech Kantonów i Alpy Glarneńskie.</p>
-                    <p><strong>Uwagi:</strong> Idealna wycieczka dla osób szukających mniej wymagających, ale malowniczych tras.</p>
-                </div>
+            <div class="section-header">
+                <p class="section-subtitle">Dla aktywnych</p>
+                <h2 class="section-title">Szlaki górskie</h2>
             </div>
-        </div>
-    </section>
-
-    <!-- About Renatka Section -->
-    <section class="about" id="o-renatce" style="background-color: var(--card-bg);">
-        <div class="container">
-            <h2 class="section-title">O Renatce</h2>
-            <p class="section-subtitle">Poznaj organizatorkę tej niesamowitej wyprawy</p>
             
-            <div style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: center; margin-bottom: 3rem;">
-                <div style="flex: 1; min-width: 300px;">
-                    <img src="img/renatka.jpg" alt="Renatka" style="border-radius: 50%; width: 250px; height: 250px; object-fit: cover; margin: 0 auto; display: block; box-shadow: var(--shadow);">
+            <div class="trail-container">
+                <div class="trail-card">
+                    <img src="https://cdn.pixabay.com/photo/2020/09/01/06/10/lake-5534341_1280.jpg" alt="Rigi Panorama Trail" class="trail-img">
+                    <div class="trail-content">
+                        <h3>Rigi Panorama Trail</h3>
+                        <div class="trail-info">
+                            <div class="trail-stat">
+                                <i class="fas fa-route"></i>
+                                <span>10 km</span>
+                            </div>
+                            <div class="trail-stat">
+                                <i class="fas fa-clock"></i>
+                                <span>~4 godz.</span>
+                            </div>
+                            <div class="trail-stat">
+                                <i class="fas fa-mountain"></i>
+                                <span>Łatwy/Średni</span>
+                            </div>
+                        </div>
+                        <p>Trasa prowadzi z Rigi Kulm do Küssnacht przez alpejskie łąki z widokiem na Jezioro Czterech Kantonów i Alpy Glarneńskie.</p>
+                    </div>
                 </div>
-                <div style="flex: 2; min-width: 300px;">
-                    <p style="font-size: 1.1rem; line-height: 1.8;">
-                        Cześć! Jestem Renatka i kocham podróże kamperem! Od lat marzę o dokładnym zwiedzeniu alpejskich zakątków Szwajcarii i wreszcie udało mi się zaplanować tę wyprawę w maju 2025 roku. Moja pasja do gór, fotografii i lokalnych kuchni zaprowadziła mnie do stworzenia tej trasy, która łączy najpiękniejsze widoki, urocze miasteczka i niezapomniane szlaki górskie.
-                    </p>
-                    <p style="font-size: 1.1rem; line-height: 1.8;">
-                        Uwielbiam odkrywać nowe miejsca w swoim tempie, zatrzymywać się spontanicznie w miejscach, które skradną moje serce, i dzielić się tymi doświadczeniami z innymi. Ten przewodnik to efekt wielu godzin planowania, aby wycisnąć maksimum wrażeń z każdego dnia podróży!
-                    </p>
+                
+                <div class="trail-card">
+                    <img src="https://cdn.pixabay.com/photo/2019/10/08/18/13/matterhorn-4535693_1280.jpg" alt="5-Seen-Weg" class="trail-img">
+                    <div class="trail-content">
+                        <h3>5-Seen-Weg</h3>
+                        <div class="trail-info">
+                            <div class="trail-stat">
+                                <i class="fas fa-route"></i>
+                                <span>9.5 km</span>
+                            </div>
+                            <div class="trail-stat">
+                                <i class="fas fa-clock"></i>
+                                <span>~3 godz.</span>
+                            </div>
+                            <div class="trail-stat">
+                                <i class="fas fa-mountain"></i>
+                                <span>Średni</span>
+                            </div>
+                        </div>
+                        <p>Trasa prowadzi obok pięciu malowniczych jezior z których każde oferuje inny widok na Matterhorn. Wymagane buty trekkingowe.</p>
+                    </div>
+                </div>
+                
+                <div class="trail-card">
+                    <img src="https://cdn.pixabay.com/photo/2022/10/24/17/50/mountains-7544027_1280.jpg" alt="Oberbärgli" class="trail-img">
+                    <div class="trail-content">
+                        <h3>Oberbärgli (Oeschinensee)</h3>
+                        <div class="trail-info">
+                            <div class="trail-stat">
+                                <i class="fas fa-route"></i>
+                                <span>7 km</span>
+                            </div>
+                            <div class="trail-stat">
+                                <i class="fas fa-clock"></i>
+                                <span>~3 godz.</span>
+                            </div>
+                            <div class="trail-stat">
+                                <i class="fas fa-mountain"></i>
+                                <span>Średni</span>
+                            </div>
+                        </div>
+                        <p>Szlak prowadzi nad turkusowym jeziorem Oeschinensee przez alpejskie łąki na punkt widokowy z panoramą na jezioro.</p>
+                    </div>
+                </div>
+                
+                <div class="trail-card">
+                    <img src="https://cdn.pixabay.com/photo/2016/09/19/22/46/lake-1681485_1280.jpg" alt="Dragon Path" class="trail-img">
+                    <div class="trail-content">
+                        <h3>Dragon Path (Pilatus)</h3>
+                        <div class="trail-info">
+                            <div class="trail-stat">
+                                <i class="fas fa-route"></i>
+                                <span>4 km</span>
+                            </div>
+                            <div class="trail-stat">
+                                <i class="fas fa-clock"></i>
+                                <span>~1.5 godz.</span>
+                            </div>
+                            <div class="trail-stat">
+                                <i class="fas fa-mountain"></i>
+                                <span>Średni</span>
+                            </div>
+                        </div>
+                        <p>Szlak prowadzi przez jaskinie i tarasy widokowe, oferując spektakularne widoki na Jezioro Czterech Kantonów.</p>
+                    </div>
+                </div>
+                
+                <div class="trail-card">
+                    <img src="https://cdn.pixabay.com/photo/2021/09/03/15/37/mountain-6596074_1280.jpg" alt="First - Bachalpsee" class="trail-img">
+                    <div class="trail-content">
+                        <h3>First - Bachalpsee</h3>
+                        <div class="trail-info">
+                            <div class="trail-stat">
+                                <i class="fas fa-route"></i>
+                                <span>6 km</span>
+                            </div>
+                            <div class="trail-stat">
+                                <i class="fas fa-clock"></i>
+                                <span>~2 godz.</span>
+                            </div>
+                            <div class="trail-stat">
+                                <i class="fas fa-mountain"></i>
+                                <span>Łatwy</span>
+                            </div>
+                        </div>
+                        <p>Trasa prowadzi z First do górskiego jeziora Bachalpsee, w którym odbijają się szczyty Jungfrau, Mönch i Eiger.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -839,15 +1645,18 @@
 
     <!-- Tips Section -->
     <section class="tips" id="porady">
+        <div class="tips-decoration"></div>
         <div class="container">
-            <h2 class="section-title">Porady praktyczne od Renatki</h2>
-            <p class="section-subtitle">Przydatne informacje dla podróżujących kamperem po Szwajcarii</p>
+            <div class="section-header">
+                <p class="section-subtitle">Dobre rady</p>
+                <h2 class="section-title">Porady praktyczne</h2>
+            </div>
             
             <div class="tips-grid">
                 <div class="tip-card">
                     <div class="tip-icon"><i class="fas fa-road"></i></div>
                     <h3>Przepisy drogowe</h3>
-                    <p>Z mojego doświadczenia najlepiej wybrać kamper o DMC poniżej 3,5 tony, aby uniknąć dodatkowych opłat. Obowiązkowy zakup winiety (40 CHF) na autostrady - kupiłam swoją na stacji benzynowej przy granicy. Ograniczenia prędkości: 50 km/h w miastach, 80 km/h poza miastem, 100 km/h na drogach ekspresowych, 120 km/h na autostradach. Szwajcarzy bardzo przestrzegają przepisów!</p>
+                    <p>Z mojego doświadczenia najlepiej wybrać kamper o DMC poniżej 3,5 tony, aby uniknąć dodatkowych opłat. Obowiązkowy zakup winiety (40 CHF) na autostrady. Ograniczenia prędkości: 50 km/h w miastach, 80 km/h poza miastem, 100 km/h na drogach ekspresowych.</p>
                 </div>
                 
                 <div class="tip-card">
@@ -859,7 +1668,7 @@
                 <div class="tip-card">
                     <div class="tip-icon"><i class="fas fa-cloud-sun"></i></div>
                     <h3>Pogoda</h3>
-                    <p>Z mojego doświadczenia w kwietniu i maju temperatury wahają się od 5°C w nocy do 15°C w ciągu dnia. Podczas mojej ubiegłorocznej wyprawy było różnie - od słonecznych 20°C w dolinach po śnieg w wysokich partiach! Koniecznie zabieram odzież warstwową, solidne buty trekkingowe, a także krem z filtrem przeciwsłonecznym - w górach UV jest dużo silniejsze!</p>
+                    <p>Z mojego doświadczenia w kwietniu i maju temperatury wahają się od 5°C w nocy do 15°C w ciągu dnia. Koniecznie zabieram odzież warstwową, solidne buty trekkingowe, a także krem z filtrem przeciwsłonecznym.</p>
                 </div>
                 
                 <div class="tip-card">
@@ -871,7 +1680,7 @@
                 <div class="tip-card">
                     <div class="tip-icon"><i class="fas fa-money-bill-wave"></i></div>
                     <h3>Finanse - moje triki</h3>
-                    <p>Szwajcaria nie należy do strefy euro - walutą jest frank szwajcarski (CHF). Ja zawsze korzystam z karty Revolut do wymiany franków i unikam opłat za wypłaty z bankomatów. Mój złoty trik: robię zakupy spożywcze w sieciach Aldi lub Lidl, które są znacznie tańsze niż Coop czy Migros. Zabieram też termos i przygotowuję własną kawę - za cappuccino w kawiarni zapłacimy nawet 7-8 CHF! Mój budżet dzienny na 2 osoby to około 180 CHF, z czego 70-80 CHF idzie na kemping.</p>
+                    <p>Szwajcaria nie należy do strefy euro - walutą jest frank szwajcarski (CHF). Ja zawsze korzystam z karty Revolut do wymiany franków i unikam opłat za wypłaty z bankomatów.</p>
                 </div>
                 
                 <div class="tip-card">
@@ -879,72 +1688,57 @@
                     <h3>Numery alarmowe</h3>
                     <p>Ogólny numer alarmowy: 112<br>Policja: 117<br>Straż pożarna: 118<br>Pogotowie ratunkowe: 144<br>Górskie służby ratunkowe: 1414</p>
                 </div>
-                
-                <div class="tip-card">
-                    <div class="tip-icon"><i class="fas fa-info-circle"></i></div>
-                    <h3>Ciekawostki</h3>
-                    <p>Szwajcaria ma cztery języki urzędowe: niemiecki, francuski, włoski i retoromański. W zależności od regionu, spotkamy się z innym językiem i kulturą. Szwajcarzy są punktualni i cenią porządek - szanuj lokalne zasady i zwyczaje.</p>
-                </div>
-                
-                <div class="tip-card">
-                    <div class="tip-icon"><i class="fas fa-wifi"></i></div>
-                    <h3>Internet i aplikacje</h3>
-                    <p>Zalecamy korzystanie z aplikacji Komoot do planowania szlaków górskich. Większość miast oferuje darmowe Wi-Fi w centrach. Warto pobrać offline'owe mapy Google lub aplikację SBB dla połączeń kolejowych.</p>
-                </div>
             </div>
         </div>
     </section>
 
     <!-- Gallery Section -->
-    <section class="gallery" id="galeria" style="background-color: var(--light-bg);">
+    <section class="gallery" id="galeria">
         <div class="container">
-            <h2 class="section-title">Galeria zdjęć Renatki</h2>
-            <p class="section-subtitle">Inspirujące zdjęcia z poprzednich wypraw i wizualizacje nadchodzącej przygody</p>
+            <div class="section-header">
+                <p class="section-subtitle">Inspiracje</p>
+                <h2 class="section-title">Galeria zdjęć</h2>
+            </div>
             
             <div class="gallery-container">
                 <div class="gallery-item">
-                    <img src="/api/placeholder/800/600" alt="Jungfraujoch - widok na lodowiec Aletsch" class="gallery-img">
+                    <img src="https://cdn.pixabay.com/photo/2017/08/06/11/04/mountains-2591323_1280.jpg" alt="Jungfraujoch" class="gallery-img">
                     <div class="gallery-caption">Jungfraujoch - widok na lodowiec Aletsch</div>
                 </div>
                 
                 <div class="gallery-item">
-                    <img src="/api/placeholder/800/600" alt="Matterhorn o zachodzie słońca" class="gallery-img">
+                    <img src="https://cdn.pixabay.com/photo/2017/12/14/17/33/matterhorn-3019429_1280.jpg" alt="Matterhorn o zachodzie słońca" class="gallery-img">
                     <div class="gallery-caption">Matterhorn o zachodzie słońca</div>
                 </div>
                 
                 <div class="gallery-item">
-                    <img src="/api/placeholder/800/600" alt="Dolina Lauterbrunnen z wodospadami" class="gallery-img">
+                    <img src="https://cdn.pixabay.com/photo/2017/12/22/11/09/schilthorn-3033448_1280.jpg" alt="Dolina Lauterbrunnen z wodospadami" class="gallery-img">
                     <div class="gallery-caption">Dolina Lauterbrunnen z wodospadami</div>
                 </div>
                 
                 <div class="gallery-item">
-                    <img src="/api/placeholder/800/600" alt="Jezioro Genewskie i tarasy winnic Lavaux" class="gallery-img">
-                    <div class="gallery-caption">Jezioro Genewskie i tarasy winnic Lavaux</div>
-                </div>
-                
-                <div class="gallery-item">
-                    <img src="/api/placeholder/800/600" alt="Most Kapellbrücke w Lucernie" class="gallery-img">
+                    <img src="https://cdn.pixabay.com/photo/2020/09/02/16/38/switzerland-7428029_1280.jpg" alt="Most Kapellbrücke w Lucernie" class="gallery-img">
                     <div class="gallery-caption">Most Kapellbrücke w Lucernie</div>
                 </div>
                 
                 <div class="gallery-item">
-                    <img src="/api/placeholder/800/600" alt="Kamper na tle gór w Grindelwaldzie" class="gallery-img">
+                    <img src="https://cdn.pixabay.com/photo/2023/05/01/14/14/mountains-7963159_1280.jpg" alt="Panorama z góry Rigi" class="gallery-img">
+                    <div class="gallery-caption">Panorama z góry Rigi</div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://cdn.pixabay.com/photo/2016/07/28/09/01/mountains-1547302_1280.jpg" alt="Kamper na tle gór w Grindelwaldzie" class="gallery-img">
                     <div class="gallery-caption">Kamper na tle gór w Grindelwaldzie</div>
                 </div>
                 
                 <div class="gallery-item">
-                    <img src="/api/placeholder/800/600" alt="Kolejka zębata na Pilatus" class="gallery-img">
-                    <div class="gallery-caption">Kolejka zębata na Pilatus</div>
+                    <img src="https://cdn.pixabay.com/photo/2023/08/27/10/25/swiss-alps-8216616_1280.jpg" alt="Jezioro Oeschinensee" class="gallery-img">
+                    <div class="gallery-caption">Jezioro Oeschinensee</div>
                 </div>
                 
                 <div class="gallery-item">
-                    <img src="/api/placeholder/800/600" alt="Stare Miasto w Zurychu" class="gallery-img">
-                    <div class="gallery-caption">Stare Miasto w Zurychu</div>
-                </div>
-                
-                <div class="gallery-item">
-                    <img src="/api/placeholder/800/600" alt="Kemping z widokiem na góry" class="gallery-img">
-                    <div class="gallery-caption">Kemping z widokiem na góry</div>
+                    <img src="https://cdn.pixabay.com/photo/2023/02/01/16/04/fog-7760708_1280.jpg" alt="Interlaken między jeziorami" class="gallery-img">
+                    <div class="gallery-caption">Interlaken między jeziorami</div>
                 </div>
             </div>
         </div>
@@ -952,13 +1746,21 @@
 
     <!-- Footer -->
     <footer class="footer">
+        <div class="footer-mountain"></div>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
                     <h3>Renatka w Szwajcarii</h3>
                     <p>Osobisty przewodnik Renatki po Szwajcarii dla miłośników kamperingu i pięknych widoków. Dołącz do mojej alpejskiej przygody lub zainspiruj się, planując własną trasę!</p>
+                    
+                    <div class="social-links">
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    </div>
                 </div>
                 
+            </div>
+
             <div class="copyright">
                 <p>&copy; 2025 Renatka w Szwajcarii. Wszelkie prawa zastrzeżone.</p>
             </div>
@@ -967,23 +1769,89 @@
 
     <!-- JavaScript -->
     <script>
-        // Mobile menu toggle
+        // Preloader
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.querySelector('.preloader').style.opacity = 0;
+                setTimeout(function() {
+                    document.querySelector('.preloader').style.display = 'none';
+                }, 500);
+            }, 2000);
+        });
+
+        // Custom cursor
+        const cursor = document.querySelector('.cursor');
+        const follower = document.querySelector('.cursor-follower');
+        
+        if (window.innerWidth > 991) {
+            cursor.style.display = 'block';
+            follower.style.display = 'block';
+            
+            document.addEventListener('mousemove', function(e) {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+                
+                setTimeout(function() {
+                    follower.style.left = e.clientX + 'px';
+                    follower.style.top = e.clientY + 'px';
+                }, 50);
+            });
+            
+            const links = document.querySelectorAll('a, button, .btn');
+            links.forEach(link => {
+                link.addEventListener('mouseenter', () => {
+                    cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                    cursor.style.opacity = '0.5';
+                    follower.style.transform = 'translate(-50%, -50%) scale(0.5)';
+                    follower.style.opacity = '0.5';
+                });
+                link.addEventListener('mouseleave', () => {
+                    cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                    cursor.style.opacity = '1';
+                    follower.style.transform = 'translate(-50%, -50%) scale(1)';
+                    follower.style.opacity = '1';
+                });
+            });
+        }
+
+        // Mobile menu toggle with animation
         const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
         const closeMenu = document.querySelector('.close-menu');
         const navLinks = document.querySelector('.nav-links');
+        const body = document.body;
         
-        mobileMenuBtn.addEventListener('click', () => {
-            navLinks.classList.add('active');
-        });
+        // Function to toggle menu
+        function toggleMenu(open) {
+            if (open) {
+                navLinks.classList.add('active');
+                body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+                
+                // Reset any animation already in progress
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.style.opacity = '0';
+                    link.style.transform = 'translateY(50px)';
+                });
+                
+                // Trigger cascade animation
+                setTimeout(() => {
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.style.opacity = '1';
+                        link.style.transform = 'translateY(0)';
+                    });
+                }, 100);
+            } else {
+                navLinks.classList.remove('active');
+                body.style.overflow = ''; // Restore scrolling
+            }
+        }
         
-        closeMenu.addEventListener('click', () => {
-            navLinks.classList.remove('active');
-        });
+        mobileMenuBtn.addEventListener('click', () => toggleMenu(true));
+        closeMenu.addEventListener('click', () => toggleMenu(false));
         
-        // Close menu when clicking on a nav link
+        // Close menu when clicking on a nav link with animation
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
+                toggleMenu(false);
             });
         });
         
@@ -1014,6 +1882,22 @@
                 }
             });
         });
+        
+        // ScrollTrigger for timeline items
+        const days = document.querySelectorAll('.day');
+        
+        function checkDays() {
+            days.forEach(day => {
+                const dayTop = day.getBoundingClientRect().top;
+                if (dayTop < window.innerHeight * 0.8) {
+                    day.classList.add('active');
+                }
+            });
+        }
+        
+        // Check positions on load and scroll
+        window.addEventListener('load', checkDays);
+        window.addEventListener('scroll', checkDays);
     </script>
 </body>
 </html>
