@@ -964,7 +964,84 @@
         .gallery-item:hover .gallery-caption {
             transform: translateY(0);
         }
+/* Lightbox */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
 
+.lightbox.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.lightbox-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+}
+
+.lightbox-img {
+    display: block;
+    max-width: 100%;
+    max-height: 90vh;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    outline: none;
+}
+
+.lightbox-prev,
+.lightbox-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+}
+
+.lightbox-prev:hover,
+.lightbox-next:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.lightbox-prev {
+    left: 20px;
+}
+
+.lightbox-next {
+    right: 20px;
+}
         /* --- Footer --- */
         .footer {
             background-color: var(--dark-bg);
@@ -1427,13 +1504,13 @@
                 <div class="day day-left">
                     <div class="day-content">
                         <h3>Dzień 5</h3>
-                        <span class="day-date">1 maja: Oeschinensee</span>
+                        <span class="day-date">1 maja: Zermatt i Matterhorn</span>
                         <div class="day-info">
-                            <p><strong>Trasa:</strong> Grindelwald → Kandersteg (1 godzina)</p>
-                            <p><strong>Oeschinensee:</strong> Turkusowe jezioro alpejskie położone na wysokości 1578 m n.p.m., otoczone majestatycznymi szczytami.</p>
-                            <p><strong>Szlaki piesze:</strong> Wybór tras o różnej trudności wokół jeziora, od łatwych spacerów po wymagające trasy widokowe.</p>
+                            <p><strong>Trasa:</strong> Kandersteg/Randa → Täsch (miasto jest niedostępne dla zwykłych pojazdów)</p>
+                            <p><strong>Zermatt:</strong> Kamper należy zostawić na parkingu w Täsch i przesiąść się w pociąg (czas: 12 minut).</p>
+                            <p><strong>Szlaki górskie:</strong> 5-Seen-Weg („Szlak Pięciu Jezior"): Trasa o długości 9,5 km, prowadząca obok jezior z widokiem na Matterhorn.</p>
                         </div>
-                        <img src="https://cdn.pixabay.com/photo/2022/10/24/17/50/mountains-7544027_1280.jpg" alt="Jezioro Oeschinensee" class="day-img">
+                        <img src="https://cdn.pixabay.com/photo/2019/10/08/18/13/matterhorn-4535693_1280.jpg" alt="Zermatt i Matterhorn" class="day-img">
                     </div>
                 </div>
 
@@ -1441,13 +1518,13 @@
                 <div class="day day-right">
                     <div class="day-content">
                         <h3>Dzień 6</h3>
-                        <span class="day-date">2 maja: Zermatt i Matterhorn</span>
+                        <span class="day-date">2 maja: Oeschinensee</span>
                         <div class="day-info">
-                            <p><strong>Trasa:</strong> Kandersteg/Randa → Täsch (miasto jest niedostępne dla zwykłych pojazdów)</p>
-                            <p><strong>Zermatt:</strong> Kamper należy zostawić na parkingu w Täsch i przesiąść się w pociąg (czas: 12 minut).</p>
-                            <p><strong>Szlaki górskie:</strong> 5-Seen-Weg („Szlak Pięciu Jezior"): Trasa o długości 9,5 km, prowadząca obok jezior z widokiem na Matterhorn.</p>
+                            <p><strong>Trasa:</strong> Grindelwald → Kandersteg (1 godzina)</p>
+                            <p><strong>Oeschinensee:</strong> Turkusowe jezioro alpejskie położone na wysokości 1578 m n.p.m., otoczone majestatycznymi szczytami.</p>
+                            <p><strong>Szlaki piesze:</strong> Wybór tras o różnej trudności wokół jeziora, od łatwych spacerów po wymagające trasy widokowe.</p>
                         </div>
-                        <img src="https://cdn.pixabay.com/photo/2019/10/08/18/13/matterhorn-4535693_1280.jpg" alt="Zermatt i Matterhorn" class="day-img">
+                        <img src="https://cdn.pixabay.com/photo/2022/10/24/17/50/mountains-7544027_1280.jpg" alt="Jezioro Oeschinensee" class="day-img">
                     </div>
                 </div>
 
@@ -1693,6 +1770,14 @@
 
     <!-- Gallery Section -->
     <section class="gallery" id="galeria">
+	<div class="lightbox" id="lightbox">
+    <div class="lightbox-content">
+        <button class="lightbox-close" id="lightbox-close">&times;</button>
+        <img src="" alt="" class="lightbox-img" id="lightbox-img">
+        <button class="lightbox-prev" id="lightbox-prev">&lt;</button>
+        <button class="lightbox-next" id="lightbox-next">&gt;</button>
+    </div>
+</div>
         <div class="container">
             <div class="section-header">
                 <p class="section-subtitle">Inspiracje</p>
@@ -1701,43 +1786,84 @@
             
             <div class="gallery-container">
                 <div class="gallery-item">
-                    <img src="https://cdn.pixabay.com/photo/2017/08/06/11/04/mountains-2591323_1280.jpg" alt="Jungfraujoch" class="gallery-img">
-                    <div class="gallery-caption">Jungfraujoch - widok na lodowiec Aletsch</div>
+                    <img src="img/ren/1.jpg" alt="Jungfraujoch" class="gallery-img">
+                    <div class="gallery-caption"></div>
                 </div>
                 
                 <div class="gallery-item">
-                    <img src="https://cdn.pixabay.com/photo/2017/12/14/17/33/matterhorn-3019429_1280.jpg" alt="Matterhorn o zachodzie słońca" class="gallery-img">
-                    <div class="gallery-caption">Matterhorn o zachodzie słońca</div>
+                    <img src="img/ren/2.jpg" alt="Matterhorn o zachodzie słońca" class="gallery-img">
+                    <div class="gallery-caption"></div>
                 </div>
                 
                 <div class="gallery-item">
-                    <img src="https://cdn.pixabay.com/photo/2017/12/22/11/09/schilthorn-3033448_1280.jpg" alt="Dolina Lauterbrunnen z wodospadami" class="gallery-img">
-                    <div class="gallery-caption">Dolina Lauterbrunnen z wodospadami</div>
+                    <img src="img/ren/3.jpg" alt="Dolina Lauterbrunnen z wodospadami" class="gallery-img">
+                    <div class="gallery-caption"></div>
                 </div>
                 
                 <div class="gallery-item">
-                    <img src="https://cdn.pixabay.com/photo/2020/09/02/16/38/switzerland-7428029_1280.jpg" alt="Most Kapellbrücke w Lucernie" class="gallery-img">
-                    <div class="gallery-caption">Most Kapellbrücke w Lucernie</div>
+                    <img src="img/ren/4.jpg" alt="Most Kapellbrücke w Lucernie" class="gallery-img">
+                    <div class="gallery-caption"></div>
                 </div>
                 
                 <div class="gallery-item">
-                    <img src="https://cdn.pixabay.com/photo/2023/05/01/14/14/mountains-7963159_1280.jpg" alt="Panorama z góry Rigi" class="gallery-img">
-                    <div class="gallery-caption">Panorama z góry Rigi</div>
+                    <img src="img/ren/5.jpg" alt="Panorama z góry Rigi" class="gallery-img">
+                    <div class="gallery-caption"></div>
                 </div>
                 
                 <div class="gallery-item">
-                    <img src="https://cdn.pixabay.com/photo/2016/07/28/09/01/mountains-1547302_1280.jpg" alt="Kamper na tle gór w Grindelwaldzie" class="gallery-img">
-                    <div class="gallery-caption">Kamper na tle gór w Grindelwaldzie</div>
+                    <img src="img/ren/6.jpg" alt="Kamper na tle gór w Grindelwaldzie" class="gallery-img">
+                    <div class="gallery-caption"></div>
                 </div>
                 
                 <div class="gallery-item">
-                    <img src="https://cdn.pixabay.com/photo/2023/08/27/10/25/swiss-alps-8216616_1280.jpg" alt="Jezioro Oeschinensee" class="gallery-img">
-                    <div class="gallery-caption">Jezioro Oeschinensee</div>
+                    <img src="img/ren/7.jpg" alt="Jezioro Oeschinensee" class="gallery-img">
+                    <div class="gallery-caption"></div>
                 </div>
                 
                 <div class="gallery-item">
-                    <img src="https://cdn.pixabay.com/photo/2023/02/01/16/04/fog-7760708_1280.jpg" alt="Interlaken między jeziorami" class="gallery-img">
-                    <div class="gallery-caption">Interlaken między jeziorami</div>
+                    <img src="img/ren/8.jpg" alt="Interlaken między jeziorami" class="gallery-img">
+                    <div class="gallery-caption"></div>
+                </div>
+				<div class="gallery-item">
+                    <img src="img/ren/9.jpg" alt="Interlaken między jeziorami" class="gallery-img">
+                    <div class="gallery-caption"></div>
+                </div>
+				<div class="gallery-item">
+                    <img src="img/ren/10.jpg" alt="Interlaken między jeziorami" class="gallery-img">
+                    <div class="gallery-caption"></div>
+                </div>
+				<div class="gallery-item">
+                    <img src="img/ren/11.jpg" alt="Interlaken między jeziorami" class="gallery-img">
+                    <div class="gallery-caption"></div>
+				</div>
+				<div class="gallery-item">
+                    <img src="img/ren/12.jpg" alt="Interlaken między jeziorami" class="gallery-img">
+                    <div class="gallery-caption"></div>
+                </div>
+				<div class="gallery-item">
+                    <img src="img/ren/13.jpg" alt="Interlaken między jeziorami" class="gallery-img">
+                    <div class="gallery-caption"></div>
+                </div>
+				<div class="gallery-item">
+                    <img src="img/ren/14.jpg" alt="Interlaken między jeziorami" class="gallery-img">
+                    <div class="gallery-caption"></div>
+                </div>
+				<div class="gallery-item">
+                    <img src="img/ren/15.jpg" alt="Interlaken między jeziorami" class="gallery-img">
+                    <div class="gallery-caption">Najwspanialsza 🥰</div>
+                </div>
+				<div class="gallery-item">
+                    <img src="img/ren/16.jpg" alt="Interlaken między jeziorami" class="gallery-img">
+                    <div class="gallery-caption">Urocza 😍</div>
+                </div>
+				<div class="gallery-item">
+                    <img src="img/ren/17.jpg" alt="Interlaken między jeziorami" class="gallery-img">
+                    <div class="gallery-caption">Cudowna 😘</div>
+                </div>
+				 <div class="gallery-item">
+                    <img src="img/ren/18.jpg" alt="Interlaken między jeziorami" class="gallery-img">
+                    <div class="gallery-caption">Piękna ❤️</div>
+                </div>
                 </div>
             </div>
         </div>
@@ -1897,6 +2023,79 @@
         // Check positions on load and scroll
         window.addEventListener('load', checkDays);
         window.addEventListener('scroll', checkDays);
+		document.addEventListener('DOMContentLoaded', function() {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxClose = document.getElementById('lightbox-close');
+    const lightboxPrev = document.getElementById('lightbox-prev');
+    const lightboxNext = document.getElementById('lightbox-next');
+    
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    let currentImgIndex = 0;
+    
+    // Funkcja otwierająca lightbox
+    function openLightbox(imgSrc, index) {
+        lightboxImg.src = imgSrc;
+        currentImgIndex = index;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Blokuje przewijanie strony
+    }
+    
+    // Funkcja zamykająca lightbox
+    function closeLightbox() {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = ''; // Przywraca przewijanie strony
+    }
+    
+    // Funkcja pokazująca poprzednie zdjęcie
+    function showPrevImg() {
+        currentImgIndex = (currentImgIndex - 1 + galleryItems.length) % galleryItems.length;
+        const imgSrc = galleryItems[currentImgIndex].querySelector('img').src;
+        lightboxImg.src = imgSrc;
+    }
+    
+    // Funkcja pokazująca następne zdjęcie
+    function showNextImg() {
+        currentImgIndex = (currentImgIndex + 1) % galleryItems.length;
+        const imgSrc = galleryItems[currentImgIndex].querySelector('img').src;
+        lightboxImg.src = imgSrc;
+    }
+    
+    // Dodajemy obsługę kliknięcia dla każdego elementu galerii
+    galleryItems.forEach((item, index) => {
+        item.addEventListener('click', function() {
+            const imgSrc = this.querySelector('img').src;
+            openLightbox(imgSrc, index);
+        });
+    });
+    
+    // Obsługa kliknięcia przycisku zamknięcia
+    lightboxClose.addEventListener('click', closeLightbox);
+    
+    // Obsługa kliknięcia poza obrazem
+    lightbox.addEventListener('click', function(e) {
+        if (e.target === lightbox) {
+            closeLightbox();
+        }
+    });
+    
+    // Obsługa przycisków nawigacji
+    lightboxPrev.addEventListener('click', showPrevImg);
+    lightboxNext.addEventListener('click', showNextImg);
+    
+    // Obsługa klawiszy
+    document.addEventListener('keydown', function(e) {
+        if (!lightbox.classList.contains('active')) return;
+        
+        if (e.key === 'Escape') {
+            closeLightbox();
+        } else if (e.key === 'ArrowLeft') {
+            showPrevImg();
+        } else if (e.key === 'ArrowRight') {
+            showNextImg();
+        }
+    });
+});
     </script>
-</body>
+	</body>
 </html>
